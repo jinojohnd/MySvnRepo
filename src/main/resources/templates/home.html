@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/datatable/dataTables.min.css}" />	
+  	<div th:replace="fragments/header :: header-css"/>
+	<script th:src="@{/js/datatable/datatable.js}"></script>
+	<script th:src="@{/js/datatable/dataTables.min.js}"></script>
+</head>
+
+<body>
+	<div th:replace="fragments/header :: header"/>
+	<div class="container-fluid">		
+		<!-- <div class="panel-group"> -->
+		<div class="modal-body row-fluid">
+			<div class="col-md-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<span th:utext="${userName}"></span>
+					</div>
+					<div class="panel-body">
+						<div class="col-md-12">
+							<h1>Forex List</h1>
+							<table id="forexTable" class="display table">
+						      
+						       <!-- Header Table -->
+						       <thead>
+						            <tr>
+						                <th class="tHead">Name</th>
+										<th class="tHead">Type</th>
+						                <th class="tHead">Manager Name</th>
+						                <th class="tHead">Total Amount</th>
+						            </tr>
+						        </thead>
+						        <!-- Footer Table -->
+						        <tfoot>
+						            <tr>
+						                <th class="tHead">Name</th>
+										<th class="tHead">Type</th>
+						                <th class="tHead">Manager Name</th>
+						                <th class="tHead">Total Amount</th>
+						            </tr>
+						        </tfoot>
+						    </table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>
+</body>
+</html>

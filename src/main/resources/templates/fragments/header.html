@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header-css">
+		<title>Finance APP</title>
+        <!-- this is header-css -->
+        <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}" />
+        <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap-toggle.min.css}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker3.css}"/>
+		
+	  	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	  	<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/modernizr.js}"></script>
+	  	
+	  	<!-- Links for Date picker -->
+	  	<script th:src="@{/js/datepicker/jquery-1.11.3.min.js}"></script>
+	  	<script th:src="@{/js/datepicker/bootstrap-datepicker.min.js}"></script>
+	  	
+		<script th:src="@{/js/toggle/bootstrap-toggle.min.js}"></script>
+		
+		<!-- JS links from application -->  
+		<script th:src="@{/js/validator.min.js}"></script>
+		<script th:src="@{/js/loader.js}"></script>
+</head>
+<body>
+	<th:block th:fragment="header">
+	   <div class="loader"></div>
+	    <nav id="nav-3" class="navbar navbar-fixed-top">
+	      <a class="navbar-brand" th:href="@{/home}">
+	      	<img th:src="@{/images/flogo.png}" class="nav-image"/>
+	      </a>
+	      <a class="glyphicon glyphicon-home homelink padding" th:href="@{/home}"></a>
+		  <a class="link-3 padding divider-vertical" th:href="@{/home/create-forex}">Forex Request</a>
+		  <a class="link-3 padding divider-vertical" th:href="@{/home}">Pending Items</a>
+		  <a class="glyphicon glyphicon-off logoutlink navbar-right" title="Logout" th:href="@{/logout}"></a>
+		</nav>
+		
+	</th:block>
+	
+	<th:block th:fragment="side-bar-forex">
+		<nav class="navbar side-bar-nav">	  
+		      <ul class="nav navbar-nav">
+		      	<li><a href='#'>From Existing</a></li>
+		      	<li><a href='#'>Another Link 2</a></li>
+		      	<li><a href='#'>Another Link 3</a></li>
+		      </ul>
+		</nav>
+	</th:block>
+</body>
+</html>
