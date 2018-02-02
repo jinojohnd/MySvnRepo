@@ -52,6 +52,14 @@ public class LoginController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="home/list-forex", method = RequestMethod.GET)
+	public ModelAndView createForexReqFromExisiting(){
+		ModelAndView modelAndView = new ModelAndView();
+		getUserName(modelAndView);
+		modelAndView.setViewName("list_forex");
+		return modelAndView;
+	}
+	
 	@RequestMapping(value = "/home/forex-submission", method = RequestMethod.POST)
 	public ModelAndView createNewForexRequest(@Valid Forex forex, @Valid Itinerary itinerary, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();

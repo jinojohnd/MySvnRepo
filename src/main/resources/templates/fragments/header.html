@@ -17,11 +17,10 @@
 	  	<script th:src="@{/js/datepicker/jquery-1.11.3.min.js}"></script>
 	  	<script th:src="@{/js/datepicker/bootstrap-datepicker.min.js}"></script>
 	  	
-		<script th:src="@{/js/toggle/bootstrap-toggle.min.js}"></script>
-		
-		<!-- JS links from application -->  
+		<script th:src="@{/js/toggle/bootstrap-toggle.min.js}"></script>  
 		<script th:src="@{/js/validator.min.js}"></script>
 		<script th:src="@{/js/loader.js}"></script>
+		<script th:src="@{/js/menuhighlight.js}"></script>
 </head>
 <body>
 	<th:block th:fragment="header">
@@ -41,7 +40,8 @@
 	<th:block th:fragment="side-bar-forex">
 		<nav class="navbar side-bar-nav">	  
 		      <ul class="nav navbar-nav">
-		      	<li><a href='#'>From Existing</a></li>
+		      	<li><a th:href="@{/home/create-forex}">New Request</a></li>
+		      	<li><a th:href="@{/home/list-forex}">From Existing</a></li>
 		      	<li><a href='#'>Another Link 2</a></li>
 		      	<li><a href='#'>Another Link 3</a></li>
 		      </ul>
