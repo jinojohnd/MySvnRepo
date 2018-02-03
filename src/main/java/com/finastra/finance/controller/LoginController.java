@@ -1,7 +1,5 @@
 package com.finastra.finance.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +49,15 @@ public class LoginController {
 		modelAndView.addObject("forex", new Forex());
 		return modelAndView;
 	}
+	
+	/*@RequestMapping(value="home/view-forex", method = RequestMethod.GET)
+	public ModelAndView viewForexReq(@RequestParam("id") int id){
+		ModelAndView modelAndView = new ModelAndView();
+		getUserName(modelAndView);
+		modelAndView.setViewName("forex_request");
+		modelAndView.addObject("forex", forexService.getForex(id));
+		return modelAndView;
+	}*/
 	
 	@RequestMapping(value="home/list-forex", method = RequestMethod.GET)
 	public ModelAndView createForexReqFromExisiting(){

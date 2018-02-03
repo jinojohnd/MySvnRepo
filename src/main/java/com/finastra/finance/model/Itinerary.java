@@ -293,5 +293,17 @@ public class Itinerary
 	public void setOthr_cur(String othr_cur) {
 		this.othr_cur = othr_cur;
 	}
+
+	public String toJson() {
+		return "{\"itinerary_id\":\"" + itinerary_id + "\", \"departure_dt\":\"" + departure_dt + "\", \"return_dt\":\"" + return_dt
+				+ "\", \"food_days\":\"" + food_days + "\", \"food_amt_per_day\":\"" + food_amt_per_day + "\", \"food_total_amt\":\""
+				+ food_total_amt + "\", \"food_cur\":\"" + food_cur + "\", \"local_conveyance_days\":\"" + local_conveyance_days
+				+ "\", \"local_conveyance_per_day\":\"" + local_conveyance_per_day + "\", \"local_conveyance_total_amt\":\""
+				+ local_conveyance_total_amt + "\", \"local_conveyance_cur\":\"" + local_conveyance_cur + "\", \"dest_city\":\""
+				+ dest_city + "\", \"hotel_days\":\"" + hotel_days + "\", \"hotel_per_day\":\"" + hotel_per_day + "\", \"hotel_total_amt\":\""
+				+ hotel_total_amt + "\", \"hotel_cur\":\"" + hotel_cur + "\", \"dest_country\":\"" + dest_country + "\", \"othr_days\":\""
+				+ othr_days + "\", \"othr_per_day\":\"" + othr_per_day + "\", \"othr_total_amt\":\"" + othr_total_amt + "\", \"othr_cur\":\""
+				+ othr_cur + "\"}";
+	}
 	
 }

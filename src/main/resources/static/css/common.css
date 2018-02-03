@@ -273,3 +273,15 @@ li.active {
 a.active {
 	color:#ffffff !important;
 }
+
+@media (min-width: 768px) {
+  .modal-xl {
+  width: 90% !important;
+  max-width:1200px;
+  }
+}
+
+.bg-imp {
+	color:#e40046;
+	
+}

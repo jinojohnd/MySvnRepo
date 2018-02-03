@@ -199,14 +199,6 @@ public class Forex
 		this.total_amt = total_amt;
 	}
 
-	public Date getDob_dt() {
-		return dob_dt;
-	}
-
-	public void setDob_dt(Date dob_dt) {
-		this.dob_dt = dob_dt;
-	}
-
 	public List<Itinerary> getItineraryLst() {
 		return itineraryLst;
 	}
@@ -327,11 +319,11 @@ public class Forex
 		this.client_nm = client_nm;
 	}
 
-	public Date getdob_dt() {
+	public Date getDob_dt() {
 		return dob_dt;
 	}
 
-	public void setdob_dt(Date dob_dt) {
+	public void setDob_dt(Date dob_dt) {
 		this.dob_dt = dob_dt;
 	}
 
@@ -443,5 +435,27 @@ public class Forex
 	{
 		itineraryLst.add(itinerary);
 		itinerary.setForex(this);
+	}
+
+	public String toJson() {
+		
+		StringBuffer forex = new StringBuffer();
+		
+		forex.append("{\"forex_id\":\"" + forex_id + "\", \"emp_type\":\"" + emp_type + "\", \"emp_nm\":\"" + emp_nm + "\", \"mother_nm\":\""
+				+ mother_nm + "\", \"email\":\"" + email + "\", \"mobile\":\"" + mobile + "\", \"manager_nm\":\"" + manager_nm + "\", \"forex_card\":\""
+				+ forex_card + "\", \"purpose_of_trip\":\"" + purpose_of_trip + "\", \"billable\":\"" + billable + "\", \"proj_code\":\""
+				+ proj_code + "\", \"proj_nm\":\"" + proj_nm + "\", \"opp_num\":\"" + opp_num + "\", \"client_nm\":\"" + client_nm + "\", \"dob_dt\":\""
+				+ dob_dt + "\", \"add_line_1\":\"" + add_line_1 + "\", \"add_line_2\":\"" + add_line_2 + "\", \"add_line_3\":\"" + add_line_3
+				+ "\", \"passport_num\":\"" + passport_num + "\", \"passport_iss_dt\":\"" + passport_iss_dt + "\", \"passport_exp_dt\":\""
+				+ passport_exp_dt + "\", \"city\":\"" + city + "\", \"uid\":\"" + uid + "\", \"request_type\":\"" + request_type
+				+ "\", \"amt_in_cash\":\"" + amt_in_cash + "\", \"amt_on_card\":\"" + amt_on_card + "\", \"total_amt\":\"" + total_amt
+				+ "\", \"comments\":\"" + comments +"\",\"itinerary\":");
+		
+		for(int i=0; i<this.itineraryLst.size(); i++)
+		{
+			Itinerary it = itineraryLst.get(i);
+			forex.append("[").append(it.toJson()).append("],");
+		}
+		return forex.substring(0, forex.length()-1) +"}";
 	}
 }

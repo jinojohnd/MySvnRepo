@@ -9,4 +9,6 @@ public interface ForexService
 	public void save(Forex forex);
 	
 	public List<Forex> getAllForexItemsByUser(String email);
+	
+	public Forex getForex(int id);
 }

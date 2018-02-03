@@ -13,6 +13,6 @@ import com.finastra.finance.model.Forex;
 public interface ForexRepository  extends JpaRepository<Forex,Integer>
 {
 	//Note: the "From table_name" should be "From entity_name" where the name of the table is mapped to the entity
-	@Query("Select f.emp_nm, f.emp_type, f.manager_nm, f.total_amt from forex f where f.email=:email")
+	@Query("Select f.forex_id, f.emp_nm, f.emp_type, f.manager_nm, f.total_amt from forex f where f.email=:email")
 	public List<Forex> findAllByUserId(@Param("email") String email);
 }
