@@ -4,240 +4,421 @@
 
 <head>  	
   	<div th:replace="fragments/header :: header-css"/>
+  	<script th:src="@{/js/create_forex.js}"></script>
 </head>
 
 <body>
 <div th:replace="fragments/header :: header"/>	
-	<div class="container-fluid">
-		<div class="modal-body row-fluid">
-			<div class="col-md-2">
-				<div th:replace="fragments/header :: side-bar-forex"/>
-			</div>
-			<div class="col-md-10">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<span th:utext="${userName}"></span>
-					</div>					
-					<form data-toggle="validator" autocomplete="on" action="#" th:action="@{/home/forex-submission}"
-						th:object="${forex}" method="post" role="form">
-						<div class="panel-body">
-							<div class="forex_initiation">
-								<h3><b>Forex Requisition Form</b></h3>
-								<hr/>
-							</div>
-							<div class="container-fluid">
-								<div class="row">
-									<div class="col-md-5 column marginBtm15px">
-										<h4><b>User Details</b></h4>
+<div class="container-fluid">
+	<div class="modal-body row-fluid">
+		<div class="col-md-2">
+			<div th:replace="fragments/header :: side-bar-forex"/>
+		</div>
+		<div class="col-md-10">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<span th:utext="${userName}"></span>
+				</div>					
+				<form data-toggle="validator" autocomplete="on" action="#" th:action="@{/home/forex-submission}"
+					th:object="${forex}" method="post" role="form">
+					<div class="panel-body">
+						<div class="forex_initiation">
+							<h3><b>Forex Requisition Form</b></h3>
+							<hr/>
+						</div>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-5 column marginBtm15px">
+									<h4><b>User Details</b></h4>
+									<hr/>
+									<div class="form-group">
+										<label>Employee Type</label>
+										<select class="form-control" id="emp_type" name="emp_type" required>
+									      <option>Employee - Finastra (India)</option>
+									      <option>Employee - Finastra (Non-India)</option>
+									      <option>Contractor</option>
+									    </select>									
+									</div>
+									<div class="form-group">
+										<label>Employee Name</label>
+										<label th:if="${#fields.hasErrors('emp_nm')}" th:errors="*{emp_nm}" class="validation-message"></label>
+										<input type="text" th:field="*{emp_nm}" class="form-control" required/>								
+									</div>
+									<div class="form-group">
+										<label>Mother's Name</label>
+										<label th:if="${#fields.hasErrors('mother_nm')}" th:errors="*{mother_nm}" class="validation-message"></label>
+										<input type="text" th:field="*{mother_nm}" class="form-control" required/> 									
+									</div>
+									<div class="form-group">
+										<label>Email</label>
+										<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></label>
+										<input type="email" th:field="*{email}" name="email" class="form-control" required data-error="Invalid email address."/> 	
+										<div class="help-block with-errors"></div>								
+									</div>
+									<div class="form-group">
+										<label>Mobile Number</label>
+										<label th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}" class="validation-message"></label>
+										<input type="text" th:field="*{mobile}" class="form-control" required/> 									
+									</div>
+									<div class="form-group">
+										<label>Manager's Name</label>
+										<label th:if="${#fields.hasErrors('manager_nm')}" th:errors="*{manager_nm}" class="validation-message"></label>
+										<input type="text" th:field="*{manager_nm}" class="form-control" required/> 									
+									</div>
+									<div class="form-group">
+										<label>Forex Card Number</label>
+										<input type="text" th:field="*{forex_card}" class="form-control" pattern="^[0-9]+" data-pattern-error="Forex card field accepts only numbers."/> 
+										<div class="help-block with-errors"></div>									
+									</div>
+									<div class="form-group">
+										<label>Purpose Of Trip</label>
+										<label th:if="${#fields.hasErrors('purpose_of_trip')}" th:errors="*{purpose_of_trip}" class="validation-message"></label>
+										<input type="text" th:field="*{purpose_of_trip}" class="form-control" required/> 									
+									</div>
+									<div class="form-group">
+										<label>Billable or Non-Billable</label>
+										<select class="form-control" id="billable" name="billable" required>
+										  <option hidden>Billable or Non-Billable</option>
+									      <option value="B">Customer Facing Billable</option>
+									      <option value="C">Customer Facing Non-Billable</option>
+									      <option value="N">Non-Customer Facing Non-Billable</option>
+									      <option>Contractor</option>
+									    </select>									
+									</div>
+									<div class="form-group">
+										<label>Project Code</label>
+										<label th:if="${#fields.hasErrors('proj_code')}" th:errors="*{proj_code}" class="validation-message"></label>
+										<input type="text" th:field="*{proj_code}"
+										 class="form-control" required/> 									
+									</div>
+									<div class="form-group">
+										<label>Project Name</label>
+										<label th:if="${#fields.hasErrors('proj_nm')}" th:errors="*{proj_nm}" class="validation-message"></label>
+										<input type="text" th:field="*{proj_nm}" class="form-control" required/> 									
+									</div>
+									<div class="form-group">
+										<label>Oppurtunity Number</label>
+										<label th:if="${#fields.hasErrors('opp_num')}" th:errors="*{opp_num}" class="validation-message"></label>
+										<input type="text" th:field="*{opp_num}" class="form-control" required/> 									
+									</div>
+									<div class="form-group">
+										<label>Client Name</label>
+										<label th:if="${#fields.hasErrors('client_nm')}" th:errors="*{client_nm}" class="validation-message"></label>
+										<input type="text" th:field="*{client_nm}" class="form-control" required/> 									
+									</div>
+									
+									<div class="form-group">
+										<label>Date of Birth</label>
+										<label th:if="${#fields.hasErrors('dob_dt')}" th:errors="*{dob_dt}" class="validation-message"></label>
+										<div class="input-group">											
+									        <div class="input-group-addon">
+									         <i class="glyphicon glyphicon-th">
+									         </i>
+									        </div>
+									        <input class="form-control width10pc" th:field="*{dob_dt}" placeholder="DD-MMM-YYYY" type="text" required/>
+									    </div>									        
+								   	</div>
+								</div>
+								<div class="row-fluid">
+									<div class="col-md-5  column  marginLeft15px marginBtm15px">
+										<h4><b>Residential Address</b></h4>
 										<hr/>
 										<div class="form-group">
-											<label>Employee Type</label>
-											<select class="form-control" id="emp_type" name="emp_type" required>
-										      <option>Employee - Finastra (India)</option>
-										      <option>Employee - Finastra (Non-India)</option>
-										      <option>Contractor</option>
-										    </select>									
+											<label>Address Line 1</label>
+											<label th:if="${#fields.hasErrors('add_line_1')}" th:errors="*{add_line_1}" class="validation-message"></label>
+											<input type="text" th:field="*{add_line_1}" class="form-control" required/> 									
 										</div>
 										<div class="form-group">
-											<label>Employee Name</label>
-											<label th:if="${#fields.hasErrors('emp_nm')}" th:errors="*{emp_nm}" class="validation-message"></label>
-											<input type="text" th:field="*{emp_nm}" class="form-control" required/>								
+											<label>Address Line 2</label>
+											<label th:if="${#fields.hasErrors('add_line_2')}" th:errors="*{add_line_2}" class="validation-message"></label>
+											<input type="text" th:field="*{add_line_2}" class="form-control" required/> 									
 										</div>
 										<div class="form-group">
-											<label>Mother's Name</label>
-											<label th:if="${#fields.hasErrors('mother_nm')}" th:errors="*{mother_nm}" class="validation-message"></label>
-											<input type="text" th:field="*{mother_nm}" class="form-control" required/> 									
+											<label>Address Line 3</label>
+											<label th:if="${#fields.hasErrors('add_line_3')}" th:errors="*{add_line_3}" class="validation-message"></label>
+											<input type="text" th:field="*{add_line_3}" class="form-control" required/> 									
+										</div>
+									</div>
+								</div>
+								
+								<div class="row-fluid">
+									<div class="col-md-5  column  marginLeft15px marginBtm15px">
+										<h4><b>Passport & UID</b></h4>
+										<hr/>
+										<div class="form-group">
+											<label>Passport Number</label>
+											<label th:if="${#fields.hasErrors('passport_num')}" th:errors="*{passport_num}" class="validation-message"></label>
+											<input type="text" th:field="*{passport_num}" class="form-control" required/> 									
 										</div>
 										<div class="form-group">
-											<label>Email</label>
-											<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></label>
-											<input type="email" th:field="*{email}" name="email" class="form-control" required data-error="Invalid email address."/> 	
-											<div class="help-block with-errors"></div>								
-										</div>
-										<div class="form-group">
-											<label>Mobile Number</label>
-											<label th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}" class="validation-message"></label>
-											<input type="text" th:field="*{mobile}" class="form-control" required/> 									
-										</div>
-										<div class="form-group">
-											<label>Manager's Name</label>
-											<label th:if="${#fields.hasErrors('manager_nm')}" th:errors="*{manager_nm}" class="validation-message"></label>
-											<input type="text" th:field="*{manager_nm}" class="form-control" required/> 									
-										</div>
-										<div class="form-group">
-											<label>Forex Card Number</label>
-											<input type="text" th:field="*{forex_card}" class="form-control" pattern="^[0-9]+" data-pattern-error="Forex card field accepts only numbers."/> 
-											<div class="help-block with-errors"></div>									
-										</div>
-										<div class="form-group">
-											<label>Purpose Of Trip</label>
-											<label th:if="${#fields.hasErrors('purpose_of_trip')}" th:errors="*{purpose_of_trip}" class="validation-message"></label>
-											<input type="text" th:field="*{purpose_of_trip}" class="form-control" required/> 									
-										</div>
-										<div class="form-group">
-											<label>Billable or Non-Billable</label>
-											<select class="form-control" id="billable" name="billable" required>
-											  <option hidden>Billable or Non-Billable</option>
-										      <option value="B">Customer Facing Billable</option>
-										      <option value="C">Customer Facing Non-Billable</option>
-										      <option value="N">Non-Customer Facing Non-Billable</option>
-										      <option>Contractor</option>
-										    </select>									
-										</div>
-										<div class="form-group">
-											<label>Project Code</label>
-											<label th:if="${#fields.hasErrors('proj_code')}" th:errors="*{proj_code}" class="validation-message"></label>
-											<input type="text" th:field="*{proj_code}"
-											 class="form-control" required/> 									
-										</div>
-										<div class="form-group">
-											<label>Project Name</label>
-											<label th:if="${#fields.hasErrors('proj_nm')}" th:errors="*{proj_nm}" class="validation-message"></label>
-											<input type="text" th:field="*{proj_nm}" class="form-control" required/> 									
-										</div>
-										<div class="form-group">
-											<label>Oppurtunity Number</label>
-											<label th:if="${#fields.hasErrors('opp_num')}" th:errors="*{opp_num}" class="validation-message"></label>
-											<input type="text" th:field="*{opp_num}" class="form-control" required/> 									
-										</div>
-										<div class="form-group">
-											<label>Client Name</label>
-											<label th:if="${#fields.hasErrors('client_nm')}" th:errors="*{client_nm}" class="validation-message"></label>
-											<input type="text" th:field="*{client_nm}" class="form-control" required/> 									
-										</div>
-										
-										<div class="form-group">
-											<label>Date of Birth</label>
-											<label th:if="${#fields.hasErrors('dob_dt')}" th:errors="*{dob_dt}" class="validation-message"></label>
+											<label>Passport Issue Date</label>
+											<label th:if="${#fields.hasErrors('passport_iss_dt')}" th:errors="*{passport_iss_dt}" class="validation-message"></label>
 											<div class="input-group">											
 										        <div class="input-group-addon">
 										         <i class="glyphicon glyphicon-th">
 										         </i>
 										        </div>
-										        <input class="form-control width10pc" th:field="*{dob_dt}" placeholder="DD-MMM-YYYY" type="text" required/>
-										    </div>									        
-									   	</div>
-									</div>
-									<div class="row-fluid">
-										<div class="col-md-5  column  marginLeft15px marginBtm15px">
-											<h4><b>Residential Address</b></h4>
-											<hr/>
-											<div class="form-group">
-												<label>Address Line 1</label>
-												<label th:if="${#fields.hasErrors('add_line_1')}" th:errors="*{add_line_1}" class="validation-message"></label>
-												<input type="text" th:field="*{add_line_1}" class="form-control" required/> 									
-											</div>
-											<div class="form-group">
-												<label>Address Line 2</label>
-												<label th:if="${#fields.hasErrors('add_line_2')}" th:errors="*{add_line_2}" class="validation-message"></label>
-												<input type="text" th:field="*{add_line_2}" class="form-control" required/> 									
-											</div>
-											<div class="form-group">
-												<label>Address Line 3</label>
-												<label th:if="${#fields.hasErrors('add_line_3')}" th:errors="*{add_line_3}" class="validation-message"></label>
-												<input type="text" th:field="*{add_line_3}" class="form-control" required/> 									
-											</div>
+										        <input class="form-control width10pc" th:field="*{passport_iss_dt}" placeholder="DD-MMM-YYYY" type="text" required/>
+										    </div>									
 										</div>
-									</div>
-									
-									<div class="row-fluid">
-										<div class="col-md-5  column  marginLeft15px marginBtm15px">
-											<h4><b>Passport & UID</b></h4>
-											<hr/>
-											<div class="form-group">
-												<label>Passport Number</label>
-												<label th:if="${#fields.hasErrors('passport_num')}" th:errors="*{passport_num}" class="validation-message"></label>
-												<input type="text" th:field="*{passport_num}" class="form-control" required/> 									
-											</div>
-											<div class="form-group">
-												<label>Passport Issue Date</label>
-												<label th:if="${#fields.hasErrors('passport_iss_dt')}" th:errors="*{passport_iss_dt}" class="validation-message"></label>
-												<div class="input-group">											
-											        <div class="input-group-addon">
-											         <i class="glyphicon glyphicon-th">
-											         </i>
-											        </div>
-											        <input class="form-control width10pc" th:field="*{passport_iss_dt}" placeholder="DD-MMM-YYYY" type="text" required/>
-											    </div>									
-											</div>
-											<div class="form-group">
-												<label>Passport Expiry Date</label>
-												<label th:if="${#fields.hasErrors('passport_exp_dt')}" th:errors="*{passport_exp_dt}" class="validation-message"></label>
-												<div class="input-group">											
-											        <div class="input-group-addon">
-											         <i class="glyphicon glyphicon-th">
-											         </i>
-											        </div>
-											        <input class="form-control width10pc" th:field="*{passport_exp_dt}" placeholder="DD-MMM-YYYY" type="text" required/>
-											    </div>									
-											</div>
-											<div class="form-group">
-												<label>Place of Issue(City Only)</label>
-												<label th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="validation-message"></label>
-												<input type="text" th:field="*{city}" class="form-control" required/> 									
-											</div>
-											<div class="form-group">
-												<label>UID (PAN)</label>
-												<label th:if="${#fields.hasErrors('uid')}" th:errors="*{uid}" class="validation-message"></label>
-												<input type="text" th:field="*{uid}" class="form-control" required/> 									
-											</div>
+										<div class="form-group">
+											<label>Passport Expiry Date</label>
+											<label th:if="${#fields.hasErrors('passport_exp_dt')}" th:errors="*{passport_exp_dt}" class="validation-message"></label>
+											<div class="input-group">											
+										        <div class="input-group-addon">
+										         <i class="glyphicon glyphicon-th">
+										         </i>
+										        </div>
+										        <input class="form-control width10pc" th:field="*{passport_exp_dt}" placeholder="DD-MMM-YYYY" type="text" required/>
+										    </div>									
 										</div>
-									</div>
-									<div class="row-fluid">
-										<div class="col-md-5  column  marginLeft15px marginBtm15px">
-											<h4><b>Forex Details</b></h4>
-											<hr/>
-											<div class="col-md-8">
-												<label>Forex Card Number</label>
-												<div class="form-group">
-													<input type="text" readonly class="form-control plaintext" id="forex_card_num" name="forex_card_num" value="0000 0000 0000 0000"/> 									
-												</div>
-											</div>
-											<div class="form-group">
-												<div class="col-md-4" id="checkbox">
-													<label>Request Type</label>
-													<input type="checkbox" id="request_type"  name ="request_type" checked data-toggle="toggle" data-width="80" data-on="New" data-off="Top-Up">
-												</div>
-											</div>
-											<div class="col-md-12">
-												<table class=table>
-													<tbody>
-														<tr>
-															<td>&nbsp;</td>
-															<td>
-																<label>Amount in Cash</label>
-															</td>
-															<td>
-																<input type="text" readonly class="form-control plaintext" id="amt_in_cash" name="amt_in_cash"/>
-															</td>													
-														</tr>
-														<tr>
-															<td>&nbsp;</td>
-															<td>
-																<label>Amount on Card</label>
-															</td>
-															<td>
-																<input type="text" readonly class="form-control plaintext" id="amt_on_card" name="amt_on_card"/>
-															</td>													
-														</tr>
-														<tr>
-															<td>&nbsp;</td>
-															<td>
-																<label>Total Amount</label>
-															</td>
-															<td>
-																<input type="text" readonly class="form-control plaintext" id="total_amt" name="total_amt"/>
-															</td>													
-														</tr>
-													
-													</tbody>
-												</table>
-											</div>
+										<div class="form-group">
+											<label>Place of Issue(City Only)</label>
+											<label th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="validation-message"></label>
+											<input type="text" th:field="*{city}" class="form-control" required/> 									
+										</div>
+										<div class="form-group">
+											<label>UID (PAN)</label>
+											<label th:if="${#fields.hasErrors('uid')}" th:errors="*{uid}" class="validation-message"></label>
+											<input type="text" th:field="*{uid}" class="form-control" required/> 									
 										</div>
 									</div>
 								</div>
-								<div id ="itinerary" class="row marginBtm15px">
-									<div class="col-md-11 column">
+								<div class="row-fluid">
+									<div class="col-md-5  column  marginLeft15px marginBtm15px">
+										<h4><b>Forex Details</b></h4>
+										<hr/>
+										<div class="col-md-8">
+											<label>Forex Card Number</label>
+											<div class="form-group">
+												<input type="text" readonly class="form-control plaintext" id="forex_card_num" name="forex_card_num" value="0000 0000 0000 0000"/> 									
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-md-4" id="checkbox">
+												<label>Request Type</label>
+												<input type="checkbox" id="request_type"  name ="request_type" checked data-toggle="toggle" data-width="80" data-on="New" data-off="Top-Up">
+											</div>
+										</div>
+										<div class="col-md-12">
+											<table class=table>
+												<tbody>
+													<tr>
+														<td>&nbsp;</td>
+														<td>
+															<label>Amount in Cash</label>
+														</td>
+														<td>
+															<input type="text" readonly class="form-control plaintext" id="amt_in_cash" name="amt_in_cash"/>
+														</td>													
+													</tr>
+													<tr>
+														<td>&nbsp;</td>
+														<td>
+															<label>Amount on Card</label>
+														</td>
+														<td>
+															<input type="text" readonly class="form-control plaintext" id="amt_on_card" name="amt_on_card"/>
+														</td>													
+													</tr>
+													<tr>
+														<td>&nbsp;</td>
+														<td>
+															<label>Total Amount</label>
+														</td>
+														<td>
+															<input type="text" readonly class="form-control plaintext" id="total_amt" name="total_amt"/>
+														</td>													
+													</tr>
+												
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id ="itinerary" class="row marginBtm15px">
+								<div class="col-md-11 column">
+								<h4><b>Itinerary</b></h4>
+									<hr/>
+									<table class="table">
+									<thead>
+										<th scope ="col"></th>
+										<th scope ="col"></th>
+										<th scope ="col">Particulars of Expenditure</th>
+										<th scope ="col">No of Days</th>
+										<th scope ="col">Amt Per Day</th>
+										<th scope ="col">Total Amt</th>
+										<th scope ="col">Currency</th>
+									</thead>
+									<tbody>
+									<!-- Departure Date -->
+									<tr>
+										<td>
+											<!-- <label th:if="${#fields.hasErrors('departure_dt')}" th:errors="*{departure_dt}" class="validation-message"></label> -->
+											<label id="itinerary_dt_1">Departure Date</label>
+										</td>
+										<td>
+											<div class="form-group">
+												<div class="input-group">											
+											        <div class="input-group-addon">
+											         <i class="glyphicon glyphicon-th">
+											         </i>
+											        </div>
+											        <input class="form-control width10pc mydatepickers" th:field="*{itineraryLst[0].departure_dt}" placeholder="DD/MMM/YYYY" type="text" required/>
+											    </div>									
+											</div>											
+										</td>
+										<td>
+										Food Expenses
+										</td>
+										<td class="width5pc">
+											<div class="form-group">
+												<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].food_days}" pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
+											</div>
+										</td>
+										<td>
+											<!-- <label th:if="${#fields.hasErrors('food_amt_per_day')}" th:errors="*{food_amt_per_day}" class="validation-message"></label> -->
+											<div class="form-group">
+												<input type="text" th:field="*{itineraryLst[0].food_amt_per_day}" class="form-control" required/> 									
+											</div>
+										</td>
+										<td class="width5pc">
+											<div class="form-group">
+												<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].food_total_amt}"/> 									
+											</div>
+										</td>
+										<td class="width5pc">
+											<div class="form-group">
+												<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].food_cur}"/> 									
+											</div>
+										</td>
+									</tr>
+									<!-- Local Conveyance -->
+									<tr>
+										<td>
+											<label id="itinerary_dt_2">Return Date</label>
+											<!-- <label th:if="${#fields.hasErrors('return_dt')}" th:errors="*{return_dt}" class="validation-message"></label> -->
+										</td>
+										<td>
+											<div class="form-group">
+												<div class="input-group">											
+											        <div class="input-group-addon">
+											         <i class="glyphicon glyphicon-th">
+											         </i>
+											        </div>
+											        <input class="form-control width10pc mydatepickers" th:field="*{itineraryLst[0].return_dt}" placeholder="DD/MMM/YYYY" type="text" required/>
+											    </div>									
+											</div>											
+										</td>
+										<td>
+										Local Conveyance
+										</td>
+										<td class="width5pc">
+											<div class="form-group">
+												<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].local_conveyance_days}"/> 									
+											</div>
+										</td>
+										<td>
+											<!-- <label th:if="${#fields.hasErrors('local_conveyance_per_day')}" th:errors="*{local_conveyance_per_day}" class="validation-message"></label> -->
+											<div class="form-group">
+												<input type="text" th:field="*{itineraryLst[0].local_conveyance_per_day}" class="form-control" required pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
+											</div>
+										</td>
+										<td class="width5pc">
+											<div class="form-group">
+												<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].local_conveyance_total_amt}"/> 									
+											</div>
+										</td>
+										<td class="width5pc">
+											<div class="form-group">
+												<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].local_conveyance_cur}"/> 									
+											</div>
+										</td>
+									</tr>
+									<!-- Destination City -->
+									<tr>
+										<td>
+											<label>Destination City</label>
+											<!-- <label th:if="${#fields.hasErrors('dest_city')}" th:errors="*{dest_city}" class="validation-message"></label> -->
+										</td>
+										<td>
+											<div class="form-group">
+												<input type="text" class="form-control" th:field="*{itineraryLst[0].dest_city}" required/> 									
+											</div>											
+										</td>
+										<td>
+										Hotel Charges
+										</td>
+										<td class="width5pc">
+											<div class="form-group">
+												<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].hotel_days}"/> 									
+											</div>
+										</td>
+										<td>
+											<!-- <label th:if="${#fields.hasErrors('hotel_per_day')}" th:errors="*{hotel_per_day}" class="validation-message"></label> -->
+											<div class="form-group">
+												<input type="text" th:field="*{itineraryLst[0].hotel_per_day}" class="form-control" required pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
+											</div>
+										</td>
+										<td class="width5pc">
+											<div class="form-group">
+												<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].hotel_total_amt}"/> 									
+											</div>
+										</td>
+										<td class="width5pc">
+											<div class="form-group">
+												<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].hotel_cur}"/> 									
+											</div>
+										</td>
+									</tr>
+									<!-- Destination Country -->
+									<tr>
+										<td>
+											<label>Destination Country</label>
+											<!-- <label th:if="${#fields.hasErrors('dest_country')}" th:errors="*{dest_country}" class="validation-message"></label> -->
+										</td>
+										<td>
+											<div class="form-group">
+												<input type="text" class="form-control" th:field="*{itineraryLst[0].dest_country}" required/> 									
+											</div>											
+										</td>
+										<td>
+										Other Misc. expenses
+										</td>
+										<td class="width5pc">
+											<div class="form-group">
+												<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].othr_days}" pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
+											</div>
+										</td>
+										<td>
+											<!-- <label th:if="${#fields.hasErrors('othr_per_day')}" th:errors="*{othr_per_day}" class="validation-message"></label> -->
+											<div class="form-group">
+												<input type="text" th:field="*{itineraryLst[0].othr_per_day}" class="form-control" required/> 									
+											</div>
+										</td>
+										<td class="width5pc">
+											<div class="form-group">
+												<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].othr_total_amt}"/> 									
+											</div>
+										</td>
+										<td class="width5pc">
+											<div class="form-group">
+												<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].othr_cur}"/> 									
+											</div>
+										</td>
+									</tr>
+									</tbody>										
+									</table>
+								</div>
+								<div class="col-xs-1">
+						            <button type="button" class="btn btn-default addButton"><i class="glyphicon glyphicon-plus"></i></button>
+						        </div>
+							</div>
+							
+							<!-- Itinerary Template -->
+							<div class="form-group hide row marginBtm15px" id="itineraryTemplate">
+								<div class="col-md-11 column">
 									<h4><b>Itinerary</b></h4>
 										<hr/>
 										<table class="table">
@@ -264,7 +445,7 @@
 												         <i class="glyphicon glyphicon-th">
 												         </i>
 												        </div>
-												        <input class="form-control width10pc mydatepickers" th:field="*{itineraryLst[0].departure_dt}" placeholder="DD/MMM/YYYY" type="text" required/>
+												        <input class="form-control width10pc mydatepickers" name="departure_dt" placeholder="DD/MMM/YYYY" type="text"/>
 												    </div>									
 												</div>											
 											</td>
@@ -273,23 +454,23 @@
 											</td>
 											<td class="width5pc">
 												<div class="form-group">
-													<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].food_days}" pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
+													<input type="text" readonly class="form-control plaintext" name="food_days" pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
 												</div>
 											</td>
 											<td>
 												<!-- <label th:if="${#fields.hasErrors('food_amt_per_day')}" th:errors="*{food_amt_per_day}" class="validation-message"></label> -->
 												<div class="form-group">
-													<input type="text" th:field="*{itineraryLst[0].food_amt_per_day}" class="form-control" required/> 									
+													<input type="text" name="food_amt_per_day" class="form-control"/> 									
 												</div>
 											</td>
 											<td class="width5pc">
 												<div class="form-group">
-													<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].food_total_amt}"/> 									
+													<input type="text" readonly class="form-control plaintext" name="food_total_amt"/> 									
 												</div>
 											</td>
 											<td class="width5pc">
 												<div class="form-group">
-													<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].food_cur}"/> 									
+													<input type="text" readonly class="form-control plaintext" name="food_cur"/> 									
 												</div>
 											</td>
 										</tr>
@@ -306,7 +487,7 @@
 												         <i class="glyphicon glyphicon-th">
 												         </i>
 												        </div>
-												        <input class="form-control width10pc mydatepickers" th:field="*{itineraryLst[0].return_dt}" placeholder="DD/MMM/YYYY" type="text" required/>
+												        <input class="form-control width10pc mydatepickers" name="return_dt" placeholder="DD/MMM/YYYY" type="text" />
 												    </div>									
 												</div>											
 											</td>
@@ -315,23 +496,23 @@
 											</td>
 											<td class="width5pc">
 												<div class="form-group">
-													<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].local_conveyance_days}"/> 									
+													<input type="text" readonly class="form-control plaintext" name="local_conveyance_days"/> 									
 												</div>
 											</td>
 											<td>
 												<!-- <label th:if="${#fields.hasErrors('local_conveyance_per_day')}" th:errors="*{local_conveyance_per_day}" class="validation-message"></label> -->
 												<div class="form-group">
-													<input type="text" th:field="*{itineraryLst[0].local_conveyance_per_day}" class="form-control" required pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
+													<input type="text" name="local_conveyance_per_day" class="form-control" pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
 												</div>
 											</td>
 											<td class="width5pc">
 												<div class="form-group">
-													<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].local_conveyance_total_amt}"/> 									
+													<input type="text" readonly class="form-control plaintext" name="local_conveyance_total_amt"/> 									
 												</div>
 											</td>
 											<td class="width5pc">
 												<div class="form-group">
-													<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].local_conveyance_cur}"/> 									
+													<input type="text" readonly class="form-control plaintext" name="local_conveyance_cur"/> 									
 												</div>
 											</td>
 										</tr>
@@ -343,7 +524,7 @@
 											</td>
 											<td>
 												<div class="form-group">
-													<input type="text" class="form-control" th:field="*{itineraryLst[0].dest_city}" required/> 									
+													<input type="text" class="form-control" name="dest_city"/> 									
 												</div>											
 											</td>
 											<td>
@@ -351,23 +532,23 @@
 											</td>
 											<td class="width5pc">
 												<div class="form-group">
-													<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].hotel_days}"/> 									
+													<input type="text" readonly class="form-control plaintext" name="hotel_days"/> 									
 												</div>
 											</td>
 											<td>
 												<!-- <label th:if="${#fields.hasErrors('hotel_per_day')}" th:errors="*{hotel_per_day}" class="validation-message"></label> -->
 												<div class="form-group">
-													<input type="text" th:field="*{itineraryLst[0].hotel_per_day}" class="form-control" required pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
+													<input type="text" name="hotel_per_day" class="form-control" pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
 												</div>
 											</td>
 											<td class="width5pc">
 												<div class="form-group">
-													<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].hotel_total_amt}"/> 									
+													<input type="text" readonly class="form-control plaintext" name="hotel_total_amt"/> 									
 												</div>
 											</td>
 											<td class="width5pc">
 												<div class="form-group">
-													<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].hotel_cur}"/> 									
+													<input type="text" readonly class="form-control plaintext" name="hotel_cur"/> 									
 												</div>
 											</td>
 										</tr>
@@ -379,7 +560,7 @@
 											</td>
 											<td>
 												<div class="form-group">
-													<input type="text" class="form-control" th:field="*{itineraryLst[0].dest_country}" required/> 									
+													<input type="text" class="form-control" name="dest_country"/> 									
 												</div>											
 											</td>
 											<td>
@@ -387,313 +568,46 @@
 											</td>
 											<td class="width5pc">
 												<div class="form-group">
-													<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].othr_days}" pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
+													<input type="text" readonly class="form-control plaintext" name="othr_days" pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
 												</div>
 											</td>
 											<td>
 												<!-- <label th:if="${#fields.hasErrors('othr_per_day')}" th:errors="*{othr_per_day}" class="validation-message"></label> -->
 												<div class="form-group">
-													<input type="text" th:field="*{itineraryLst[0].othr_per_day}" class="form-control" required/> 									
+													<input type="text" name="othr_per_day" class="form-control"/> 									
 												</div>
 											</td>
 											<td class="width5pc">
 												<div class="form-group">
-													<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].othr_total_amt}"/> 									
+													<input type="text" readonly class="form-control plaintext" name="othr_total_amt"/> 									
 												</div>
 											</td>
 											<td class="width5pc">
 												<div class="form-group">
-													<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[0].othr_cur}"/> 									
+													<input type="text" readonly class="form-control plaintext" name="othr_cur"/> 									
 												</div>
 											</td>
 										</tr>
-										</tbody>										
+										</tbody>											
 										</table>
 									</div>
 									<div class="col-xs-1">
-							            <button type="button" class="btn btn-default addButton"><i class="glyphicon glyphicon-plus"></i></button>
+							            <button type="button" class="btn btn-default removeButton"><i class="glyphicon glyphicon-minus"></i></button>
 							        </div>
-								</div>
-								
-								<!-- Itinerary Template -->
-								<div class="hide row marginBtm15px" id="itineraryTemplate">
-									<div class="col-md-11 column">
-										<h4><b>Itinerary</b></h4>
-											<hr/>
-											<table class="table">
-											<thead>
-												<th scope ="col"></th>
-												<th scope ="col"></th>
-												<th scope ="col">Particulars of Expenditure</th>
-												<th scope ="col">No of Days</th>
-												<th scope ="col">Amt Per Day</th>
-												<th scope ="col">Total Amt</th>
-												<th scope ="col">Currency</th>
-											</thead>
-											<tbody>
-											<!-- Departure Date -->
-											<tr>
-												<td>
-													<!-- <label th:if="${#fields.hasErrors('departure_dt')}" th:errors="*{departure_dt}" class="validation-message"></label> -->
-													<label id="itinerary_dt_1">Departure Date</label>
-												</td>
-												<td>
-													<div class="form-group">
-														<div class="input-group">											
-													        <div class="input-group-addon">
-													         <i class="glyphicon glyphicon-th">
-													         </i>
-													        </div>
-													        <input class="form-control width10pc mydatepickers" name="departure_dt" placeholder="DD/MMM/YYYY" type="text"/>
-													    </div>									
-													</div>											
-												</td>
-												<td>
-												Food Expenses
-												</td>
-												<td class="width5pc">
-													<div class="form-group">
-														<input type="text" readonly class="form-control plaintext" name="food_days" pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
-													</div>
-												</td>
-												<td>
-													<!-- <label th:if="${#fields.hasErrors('food_amt_per_day')}" th:errors="*{food_amt_per_day}" class="validation-message"></label> -->
-													<div class="form-group">
-														<input type="text" name="food_amt_per_day" class="form-control"/> 									
-													</div>
-												</td>
-												<td class="width5pc">
-													<div class="form-group">
-														<input type="text" readonly class="form-control plaintext" name="food_total_amt"/> 									
-													</div>
-												</td>
-												<td class="width5pc">
-													<div class="form-group">
-														<input type="text" readonly class="form-control plaintext" name="food_cur"/> 									
-													</div>
-												</td>
-											</tr>
-											<!-- Local Conveyance -->
-											<tr>
-												<td>
-													<label id="itinerary_dt_2">Return Date</label>
-													<!-- <label th:if="${#fields.hasErrors('return_dt')}" th:errors="*{return_dt}" class="validation-message"></label> -->
-												</td>
-												<td>
-													<div class="form-group">
-														<div class="input-group">											
-													        <div class="input-group-addon">
-													         <i class="glyphicon glyphicon-th">
-													         </i>
-													        </div>
-													        <input class="form-control width10pc mydatepickers" name="return_dt" placeholder="DD/MMM/YYYY" type="text" />
-													    </div>									
-													</div>											
-												</td>
-												<td>
-												Local Conveyance
-												</td>
-												<td class="width5pc">
-													<div class="form-group">
-														<input type="text" readonly class="form-control plaintext" name="local_conveyance_days"/> 									
-													</div>
-												</td>
-												<td>
-													<!-- <label th:if="${#fields.hasErrors('local_conveyance_per_day')}" th:errors="*{local_conveyance_per_day}" class="validation-message"></label> -->
-													<div class="form-group">
-														<input type="text" name="local_conveyance_per_day" class="form-control" pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
-													</div>
-												</td>
-												<td class="width5pc">
-													<div class="form-group">
-														<input type="text" readonly class="form-control plaintext" name="local_conveyance_total_amt"/> 									
-													</div>
-												</td>
-												<td class="width5pc">
-													<div class="form-group">
-														<input type="text" readonly class="form-control plaintext" name="local_conveyance_cur"/> 									
-													</div>
-												</td>
-											</tr>
-											<!-- Destination City -->
-											<tr>
-												<td>
-													<label>Destination City</label>
-													<!-- <label th:if="${#fields.hasErrors('dest_city')}" th:errors="*{dest_city}" class="validation-message"></label> -->
-												</td>
-												<td>
-													<div class="form-group">
-														<input type="text" class="form-control" name="dest_city"/> 									
-													</div>											
-												</td>
-												<td>
-												Hotel Charges
-												</td>
-												<td class="width5pc">
-													<div class="form-group">
-														<input type="text" readonly class="form-control plaintext" name="hotel_days"/> 									
-													</div>
-												</td>
-												<td>
-													<!-- <label th:if="${#fields.hasErrors('hotel_per_day')}" th:errors="*{hotel_per_day}" class="validation-message"></label> -->
-													<div class="form-group">
-														<input type="text" name="hotel_per_day" class="form-control" pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
-													</div>
-												</td>
-												<td class="width5pc">
-													<div class="form-group">
-														<input type="text" readonly class="form-control plaintext" name="hotel_total_amt"/> 									
-													</div>
-												</td>
-												<td class="width5pc">
-													<div class="form-group">
-														<input type="text" readonly class="form-control plaintext" name="hotel_cur"/> 									
-													</div>
-												</td>
-											</tr>
-											<!-- Destination Country -->
-											<tr>
-												<td>
-													<label>Destination Country</label>
-													<!-- <label th:if="${#fields.hasErrors('dest_country')}" th:errors="*{dest_country}" class="validation-message"></label> -->
-												</td>
-												<td>
-													<div class="form-group">
-														<input type="text" class="form-control" name="dest_country"/> 									
-													</div>											
-												</td>
-												<td>
-												Other Misc. expenses
-												</td>
-												<td class="width5pc">
-													<div class="form-group">
-														<input type="text" readonly class="form-control plaintext" name="othr_days" pattern="^[0-9]+" data-pattern-error="This field accepts only numbers."/> 									
-													</div>
-												</td>
-												<td>
-													<!-- <label th:if="${#fields.hasErrors('othr_per_day')}" th:errors="*{othr_per_day}" class="validation-message"></label> -->
-													<div class="form-group">
-														<input type="text" name="othr_per_day" class="form-control"/> 									
-													</div>
-												</td>
-												<td class="width5pc">
-													<div class="form-group">
-														<input type="text" readonly class="form-control plaintext" name="othr_total_amt"/> 									
-													</div>
-												</td>
-												<td class="width5pc">
-													<div class="form-group">
-														<input type="text" readonly class="form-control plaintext" name="othr_cur"/> 									
-													</div>
-												</td>
-											</tr>
-											</tbody>											
-											</table>
-										</div>
-										<div class="col-xs-1">
-								            <button type="button" class="btn btn-default removeButton"><i class="glyphicon glyphicon-minus"></i></button>
-								        </div>
-									</div>								
-								</div>
-								<div class="row">
-									<div class="form-group">
-										<div class="col-md-2">
-											<button type="submit" class="btn btn-primary btn-block">Submit</button>
-										</div>
+								</div>								
+							</div>
+							<div class="row">
+								<div class="form-group">
+									<div class="col-md-2">
+										<button type="submit" class="btn btn-primary btn-block">Submit</button>
 									</div>
 								</div>
 							</div>
 						</div>
-					</form>					
-				</div>
-			</div>		
-		</div>
+					</div>
+				</form>					
+			</div>
+		</div>		
 	</div>
-	<script>
-		$(document).ready(function(){
-			var  itineraryIndex = 0;
-			
-			$('input[name="dob_dt"]').datepicker({
-				format: 'dd-M-yyyy',
-				todayHighlight: true,
-				autoclose: true,
-			});
-			
-			$('input[name="passport_iss_dt"]').datepicker({
-				format: 'dd-M-yyyy',
-				todayHighlight: true,
-				autoclose: true,
-			});
-			
-			$('input[name="passport_exp_dt"]').datepicker({
-				format: 'dd-M-yyyy',
-				todayHighlight: true,
-				autoclose: true,
-			});
-			
-			/* $('input[name="departure_dt"]').datepicker({
-				format: 'dd-M-yyyy',
-				todayHighlight: true,
-				autoclose: true,
-			}); */
-			
-			$('input[name="return_dt"]').datepicker({
-				format: 'dd-M-yyyy',
-				todayHighlight: true,
-				autoclose: true,
-			});			
-
-		    $('#request_type').bootstrapToggle();
-		    
-		    $(document).on('focus', '.mydatepickers', function() {
-		    	 $(this).datepicker({
-						format: 'dd-M-yyyy',
-						todayHighlight: true,
-						autoclose: true,
-					});			
-		    });
-		    
-		    
-		    $('#itinerary').on('click', '.addButton', function() {
-		    	itineraryIndex++;
-		    	var $template = $('#itineraryTemplate'),
-                $clone    = $template
-                                .clone()
-                                .removeClass('hide')
-                                .removeAttr('id')
-                                .attr('data-itinerary-index', itineraryIndex)
-                                .insertBefore($template);
-
-            // Update the name attributes
-            $clone
-                .find('[name="departure_dt"]').attr('name', 'itineraryLst[' + itineraryIndex + '].departure_dt').prop('required',true).end()
-                .find('[name="food_days"]').attr('name', 'itineraryLst[' + itineraryIndex + '].food_days').end()
-                .find('[name="food_amt_per_day"]').attr('name', 'itineraryLst[' + itineraryIndex + '].food_amt_per_day').prop('required',true).end()
-	            .find('[name="food_total_amt"]').attr('name', 'itineraryLst[' + itineraryIndex + '].food_total_amt').end()
-	            .find('[name="food_cur"]').attr('name', 'itineraryLst[' + itineraryIndex + '].food_cur').prop('required',true).end()
-	            .find('[name="return_dt"]').attr('name', 'itineraryLst[' + itineraryIndex + '].return_dt').prop('required',true).end()
-	            .find('[name="local_conveyance_days"]').attr('name', 'itineraryLst[' + itineraryIndex + '].local_conveyance_days').end()
-                .find('[name="local_conveyance_per_day"]').attr('name', 'itineraryLst[' + itineraryIndex + '].local_conveyance_per_day').prop('required',true).end()
-                .find('[name="local_conveyance_total_amt"]').attr('name', 'itineraryLst[' + itineraryIndex + '].local_conveyance_total_amt').end()
-	            .find('[name="local_conveyance_cur"]').attr('name', 'itineraryLst[' + itineraryIndex + '].local_conveyance_cur').prop('required',true).end()
-                .find('[name="dest_city"]').attr('name', 'itineraryLst[' + itineraryIndex + '].dest_city').prop('required',true).end()
-                .find('[name="hotel_days"]').attr('name', 'itineraryLst[' + itineraryIndex + '].hotel_days').end()
-	            .find('[name="hotel_per_day"]').attr('name', 'itineraryLst[' + itineraryIndex + '].hotel_per_day').prop('required',true).end()
-	            .find('[name="hotel_total_amt"]').attr('name', 'itineraryLst[' + itineraryIndex + '].hotel_total_amt').end()
-	            .find('[name="hotel_cur"]').attr('name', 'itineraryLst[' + itineraryIndex + '].hotel_cur').prop('required',true).end()
-	            .find('[name="dest_country"]').attr('name', 'itineraryLst[' + itineraryIndex + '].dest_country').prop('required',true).end()
-	            .find('[name="othr_days"]').attr('name', 'itineraryLst[' + itineraryIndex + '].othr_days').end()
-	            .find('[name="othr_per_day"]').attr('name', 'itineraryLst[' + itineraryIndex + '].othr_per_day').prop('required',true).end()
-	            .find('[name="othr_total_amt"]').attr('name', 'itineraryLst[' + itineraryIndex + '].othr_total_amt').end()
-	            .find('[name="othr_cur"]').attr('name', 'itineraryLst[' + itineraryIndex + '].othr_cur').prop('required',true).end();
-            
-            
-            //Re-initialize the fields in the validator plugin
-            $(document).validator('update');
-            
-		    });
-	
-		})
-	</script>
 </body>
 </html>

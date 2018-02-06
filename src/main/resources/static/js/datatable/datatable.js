@@ -11,7 +11,7 @@ $(document).ready( function () {
 				{
 					mRender: function ( data, type, row ) {
 						/*return '<a href="./home/view-forex?id='+row[0]+'" class="btn btn-primary btn-md" data-title="Edit"><span class="glyphicon glyphicon-search"></span></a></td>';*/
-						return '<a data-toggle="modal" data-id="'+row[0]+'" data-target="#myModal" class="modal-toggle btn btn-primary btn-md" data-title="Edit"><span class="glyphicon glyphicon-search"></span></a></td>';
+						return '<a data-toggle="modal" data-id="'+row[0]+'" data-target="#myModal" class="modal-toggle btn btn-primary btn-md" data-title="Edit"><span class="glyphicon glyphicon-edit"></span></a></td>';
 					}
 				}
 			]
