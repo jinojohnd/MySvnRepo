@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.finastra.finance.model.Forex;
@@ -50,14 +51,14 @@ public class LoginController {
 		return modelAndView;
 	}
 	
-	/*@RequestMapping(value="home/view-forex", method = RequestMethod.GET)
-	public ModelAndView viewForexReq(@RequestParam("id") int id){
+	@RequestMapping(value="home/create-forex", method = RequestMethod.GET,  params = "id")
+	public ModelAndView createForexReqFromExisting(@RequestParam("id") int id){
 		ModelAndView modelAndView = new ModelAndView();
 		getUserName(modelAndView);
 		modelAndView.setViewName("forex_request");
 		modelAndView.addObject("forex", forexService.getForex(id));
 		return modelAndView;
-	}*/
+	}
 	
 	@RequestMapping(value="home/list-forex", method = RequestMethod.GET)
 	public ModelAndView createForexReqFromExisiting(){
@@ -76,8 +77,7 @@ public class LoginController {
 			modelAndView.setViewName("forex_request");
 		} 
 		else
-		{			
-			forex.addItinerary(itinerary);
+		{
 			forexService.save(forex);
 			modelAndView.setViewName("success");
 			modelAndView.addObject("successMessage","Sucessfully submitted the Forex Request Form.");

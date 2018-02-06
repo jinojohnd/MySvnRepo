@@ -282,6 +282,9 @@ a.active {
 }
 
 .bg-imp {
-	color:#e40046;
-	
+	color:#e40046
+}
+
+.hyper {
+	color: #694ed6 !important;
 }

@@ -22,15 +22,14 @@ $(document).ready( function () {
 			"sAjaxDataProp": "",
 			"order": [[ 0, "asc" ]],
 			"columns": [
-				{ "mData": 1},
-				{ "mData": 2 },
-				{ "mData": 3 },
-				{ "mData": 4 },
 				{
 					mRender: function ( data, type, row ) {
-						return '<button class="btn btn-primary btn-md" data-title="Edit" data-toggle="modal" data-target="@{/home/create-forex}" ><span class="glyphicon glyphicon-pencil"></span></button></td>';
+						return '<a class ="hyper" href=./create-forex?id='+row[0]+'>'+row[1]+'</a></td>';
 					}
-				}
+				},
+				{ "mData": 2 },
+				{ "mData": 3 },
+				{ "mData": 4 }
 			]
 	 });
 
