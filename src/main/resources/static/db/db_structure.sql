@@ -99,7 +99,7 @@ CREATE TABLE `tbl_forex` (
   `email` varchar(254)NOT NULL,
   `mobile` varchar(25) NOT NULL,
   `manager_nm` varchar(35)NOT NULL,
-  `forex_card` int(15),
+  `forex_card` varchar(20)NOT NULL
   `purpose_of_trip` varchar(254)NOT NULL,
   `billable` varchar(35) NOT NULL,
   `proj_code` varchar(35)NOT NULL,
@@ -119,7 +119,10 @@ CREATE TABLE `tbl_forex` (
   `amt_in_cash` decimal(13,4) NOT NULL,
   `amt_on_card` decimal(13,4) NOT NULL,
   `total_amt` decimal(13,4) NOT NULL,
-  `comments` varchar(254), 
+  `comments` varchar(254),
+  `creation_dt` date NOT NULL,
+  `status` varchar (20) NOT NULL,
+  `input_user_mail` varchar(254)NOT NULL,  
   PRIMARY KEY (`forex_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -130,7 +133,7 @@ CREATE TABLE `tbl_itinerary` (
   `departure_dt` date NOT NULL,
   `return_dt` date NOT NULL,
   `food_days` int (15)NOT NULL,
-  `food_amt_per_day` decimal(13,4) NOT NULL,
+  `food_per_day` decimal(13,4) NOT NULL,
   `food_total_amt` decimal(13,4) NOT NULL,
   `food_cur` varchar(3),
   `local_conveyance_days` int(15) NOT NULL,
@@ -151,3 +154,12 @@ CREATE TABLE `tbl_itinerary` (
   CONSTRAINT FK_ForexID FOREIGN KEY (forex_id)
   REFERENCES tbl_forex(`forex_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tbl_country_cur`;
+CREATE TABLE `tbl_country_cur` (
+	`id` int(15) NOT NULL AUTO_INCREMENT,
+	`country_name` varchar(255),
+    `currency_name` varchar(255),
+    `currency_code` varchar(3),
+    PRIMARY KEY (`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

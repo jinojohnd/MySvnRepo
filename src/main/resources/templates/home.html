@@ -31,16 +31,27 @@
 										<th class="tHead">Type</th>
 						                <th class="tHead">Manager Name</th>
 						                <th class="tHead">Total Amount</th>
+						                <th class="tHead">Status</th>
 						                <th class="tHead">Action</th>
 						            </tr>
 						        </thead>
-						        <!-- Footer Table -->
+						       <tbody>
+						       		<tr th:each="forexItem : ${forexLst}">
+						       			<td th:text="${forexItem.emp_nm}"></td>
+						       			<td th:text="${forexItem.emp_type}"></td>
+						       			<td th:text="${forexItem.manager_nm}"></td>
+						       			<td th:text="${forexItem.total_amt}"></td>
+						       			<td th:text="#{${forexItem.status}}"></td>
+						       			<td><a data-toggle="modal" th:attr="data-id=${forexItem.forex_id}" data-target="#myModal" class="modal-toggle btn btn-primary btn-md" data-title="View"><span class="glyphicon glyphicon-search"></span></a></td>
+						       		</tr>
+						       </tbody>
 						        <tfoot>
 						            <tr>
 						                <th class="tHead">Name</th>
 										<th class="tHead">Type</th>
 						                <th class="tHead">Manager Name</th>
 						                <th class="tHead">Total Amount</th>
+						                <th class="tHead">Status</th>
 						                <th class="tHead">Action</th>
 						            </tr>
 						        </tfoot>

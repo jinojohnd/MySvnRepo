@@ -58,7 +58,7 @@ public class Forex
 	private String manager_nm;
 	
 	@Column(name = "forex_card")
-	private int forex_card;
+	private String forex_card;
 	
 	@Column(name = "purpose_of_trip")
 	@NotEmpty(message = "*This field is required")
@@ -142,6 +142,16 @@ public class Forex
 	@NotNull(message = "*This field is required")
 	private BigDecimal total_amt;
 	
+	@Column(name = "creation_dt")
+	@Temporal(TemporalType.DATE)
+	private Date creation_dt;
+	
+	@Column(name = "status")
+	private String status;
+	
+	@Column(name = "input_user_mail")
+	private String input_user_mail;
+	
 	@Column(name = "comments")
 	private String comments;
 		
@@ -149,7 +159,7 @@ public class Forex
 	List<Itinerary> itineraryLst = new ArrayList<Itinerary>();
 	
 	public Forex(int forex_id, String emp_type, String emp_nm, String mother_nm, String email, String mobile,
-			String manager_nm, int forex_card, String purpose_of_trip, String billable, String proj_code,
+			String manager_nm, String forex_card, String purpose_of_trip, String billable, String proj_code,
 			String proj_nm, String opp_num, String client_nm, Date dob_dt, String add_line_1, String add_line_2,
 			String add_line_3, String passport_num, Date passport_iss_dt, Date passport_exp_dt, String city, String uid,
 			String request_type, BigDecimal amt_in_cash, BigDecimal amt_on_card, BigDecimal total_amt, String comments,
@@ -203,7 +213,8 @@ public class Forex
 		return itineraryLst;
 	}
 
-	public void setItineraryLst(List<Itinerary> itineraryLst) {
+	public void setItineraryLst(List<Itinerary> itineraryLst) 
+	{
 		this.itineraryLst = itineraryLst;
 	}
 
@@ -263,11 +274,11 @@ public class Forex
 		this.manager_nm = manager_nm;
 	}
 
-	public int getForex_card() {
+	public String getForex_card() {
 		return forex_card;
 	}
 
-	public void setForex_card(int forex_card) {
+	public void setForex_card(String forex_card) {
 		this.forex_card = forex_card;
 	}
 
@@ -433,8 +444,31 @@ public class Forex
 	
 	public void addItinerary(Itinerary itinerary)
 	{
-		itineraryLst.add(itinerary);
 		itinerary.setForex(this);
+	}
+
+	public Date getCreation_dt() {
+		return creation_dt;
+	}
+
+	public void setCreation_dt(Date creation_dt) {
+		this.creation_dt = creation_dt;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getInput_user_mail() {
+		return input_user_mail;
+	}
+
+	public void setInput_user_mail(String input_user_mail) {
+		this.input_user_mail = input_user_mail;
 	}
 
 	public String toJson() {

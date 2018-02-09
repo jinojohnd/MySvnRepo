@@ -146,11 +146,11 @@ input[type="password"] {
   transition: all .5s;
 }
 
-.column{
+/* .column{
 	border: 1px solid #cecece;
     background-color: #ededed;
     border-radius: 15px;
-}
+} */
 
 .marginLeft15px{
     margin-left: 15px !important;
@@ -198,7 +198,7 @@ input[type="password"] {
 } */
 
 .toggle-group>.toggle-handle{
-	background-color: #ffffff !important;
+	background-color: #ffc59e !important;
 }
 
 .btn {
@@ -287,4 +287,16 @@ a.active {
 
 .hyper {
 	color: #694ed6 !important;
+}
+
+.width8pc {
+	width: 8pc;
+}
+
+.subHead {
+	height: 0.75px !important;
+}
+
+.mainTitle {
+	height: 1.1px !important;
 }

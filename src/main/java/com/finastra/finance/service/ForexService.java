@@ -10,5 +10,7 @@ public interface ForexService
 	
 	public List<Forex> getAllForexItemsByUser(String email);
 	
+	public List<Forex> getAllForexReqByUserId(String email);
+	
 	public Forex getForex(int id);
 }

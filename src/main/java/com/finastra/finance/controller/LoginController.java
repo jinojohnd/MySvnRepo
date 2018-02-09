@@ -1,5 +1,11 @@
 package com.finastra.finance.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.finastra.finance.model.Forex;
 import com.finastra.finance.model.Itinerary;
 import com.finastra.finance.model.User;
+import com.finastra.finance.service.CountryCurService;
 import com.finastra.finance.service.ForexService;
 import com.finastra.finance.service.UserService;
 
@@ -26,6 +33,9 @@ public class LoginController {
 	
 	@Autowired
 	private ForexService forexService;
+	
+	@Autowired
+	private CountryCurService countryCurService;
 
 	@RequestMapping(value= {"/","/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
@@ -48,6 +58,7 @@ public class LoginController {
 		getUserName(modelAndView);
 		modelAndView.setViewName("forex_request");
 		modelAndView.addObject("forex", new Forex());
+		modelAndView.addObject("countryCur", countryCurService.getCountryCurLst());
 		return modelAndView;
 	}
 	
@@ -57,6 +68,7 @@ public class LoginController {
 		getUserName(modelAndView);
 		modelAndView.setViewName("forex_request");
 		modelAndView.addObject("forex", forexService.getForex(id));
+		modelAndView.addObject("countryCur", countryCurService.getCountryCurLst());
 		return modelAndView;
 	}
 	
@@ -69,15 +81,22 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/home/forex-submission", method = RequestMethod.POST)
-	public ModelAndView createNewForexRequest(@Valid Forex forex, @Valid Itinerary itinerary, BindingResult bindingResult) {
+	public ModelAndView submitNewForexRequest(@Valid Forex forex, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		getUserName(modelAndView);
+		
 		if (bindingResult.hasErrors()) 
 		{			
 			modelAndView.setViewName("forex_request");
 		} 
 		else
 		{
+			for(Itinerary itr:forex.getItineraryLst())
+			{
+				forex.addItinerary(itr);
+			}
+			
+			preSubmitAction(forex);
 			forexService.save(forex);
 			modelAndView.setViewName("success");
 			modelAndView.addObject("successMessage","Sucessfully submitted the Forex Request Form.");
@@ -94,7 +113,7 @@ public class LoginController {
 					.rejectValue("email", "error.user",
 							"There is already a user registered with the email provided");
 		}
-		if (bindingResult.hasErrors()) {
+		if (!bindingResult.hasErrors()) {
 			modelAndView.setViewName("registration");
 		} else {
 			userService.saveUser(user);
@@ -110,8 +129,9 @@ public class LoginController {
 	public ModelAndView home()
 	{
 		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		getUserName(modelAndView);
-		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+		modelAndView.addObject("forexLst",forexService.getAllForexReqByUserId(auth.getName()));
 		modelAndView.setViewName("home");
 		return modelAndView;
 	}
@@ -122,6 +142,25 @@ public class LoginController {
 		User user = userService.findUserByEmail(auth.getName());
 		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
 	}
-	
+
+	private void preSubmitAction(Forex forex) 
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		forex.setInput_user_mail(auth.getName());
+		forex.setStatus("STS_01");
+		
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		Date today = Calendar.getInstance().getTime(); 
+		String reportDate = df.format(today);
+		try 
+		{
+			Date date = df.parse(reportDate);
+			forex.setCreation_dt(date);
+		} 
+		catch (ParseException e) 
+		{
+			e.printStackTrace();
+		}
+	}
 
 }

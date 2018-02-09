@@ -38,4 +38,10 @@ public class ForexServiceImpl implements ForexService
 		return f;
 	}
 
+	@Override
+	public List<Forex> getAllForexReqByUserId(String email) {
+		
+		return forexRepository.findAllForexReqByUserId(email);
+	}
+
 }

@@ -49,9 +49,9 @@ public class Itinerary
 	@Column(name = "food_days")
 	private int food_days;
 	
-	@Column(precision=13, scale=4, name="food_amt_per_day")
+	@Column(precision=13, scale=4, name="food_per_day")
 	@NotNull(message = "*This field is required")
-	private BigDecimal food_amt_per_day;
+	private BigDecimal food_per_day;
 	
 	@Column(precision=13, scale=4, name="food_total_amt")
 	@NotNull(message = "*This field is required")
@@ -158,12 +158,12 @@ public class Itinerary
 		this.food_days = food_days;
 	}
 
-	public BigDecimal getFood_amt_per_day() {
-		return food_amt_per_day;
+	public BigDecimal getFood_per_day() {
+		return food_per_day;
 	}
 
-	public void setFood_amt_per_day(BigDecimal food_amt_per_day) {
-		this.food_amt_per_day = food_amt_per_day;
+	public void setFood_per_day(BigDecimal food_per_day) {
+		this.food_per_day = food_per_day;
 	}
 
 	public BigDecimal getFood_total_amt() {
@@ -296,7 +296,7 @@ public class Itinerary
 
 	public String toJson() {
 		return "{\"itinerary_id\":\"" + itinerary_id + "\", \"departure_dt\":\"" + departure_dt + "\", \"return_dt\":\"" + return_dt
-				+ "\", \"food_days\":\"" + food_days + "\", \"food_amt_per_day\":\"" + food_amt_per_day + "\", \"food_total_amt\":\""
+				+ "\", \"food_days\":\"" + food_days + "\", \"food_per_day\":\"" + food_per_day + "\", \"food_total_amt\":\""
 				+ food_total_amt + "\", \"food_cur\":\"" + food_cur + "\", \"local_conveyance_days\":\"" + local_conveyance_days
 				+ "\", \"local_conveyance_per_day\":\"" + local_conveyance_per_day + "\", \"local_conveyance_total_amt\":\""
 				+ local_conveyance_total_amt + "\", \"local_conveyance_cur\":\"" + local_conveyance_cur + "\", \"dest_city\":\""
