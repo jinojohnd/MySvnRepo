@@ -20,63 +20,78 @@
 						<span th:utext="${userName}"></span>
 					</div>
 					<div class="panel-body">
-						<div class="col-md-12">
-							<h1>Forex List</h1>
-							<table id="forexTable" class="display table">
-						      
-						       <!-- Header Table -->
-						       <thead>
-						            <tr>
-						                <th class="tHead">Name</th>
-										<th class="tHead">Type</th>
-						                <th class="tHead">Manager Name</th>
-						                <th class="tHead">Total Amount</th>
-						                <th class="tHead">Status</th>
-						                <th class="tHead">Action</th>
-						            </tr>
-						        </thead>
-						       <tbody>
-						       		<tr th:each="forexItem : ${forexLst}">
-						       			<td th:text="${forexItem.emp_nm}"></td>
-						       			<td th:text="${forexItem.emp_type}"></td>
-						       			<td th:text="${forexItem.manager_nm}"></td>
-						       			<td th:text="${forexItem.total_amt}"></td>
-						       			<td th:text="#{${forexItem.status}}"></td>
-						       			<td><a data-toggle="modal" th:attr="data-id=${forexItem.forex_id}" data-target="#myModal" class="modal-toggle btn btn-primary btn-md" data-title="View"><span class="glyphicon glyphicon-search"></span></a></td>
-						       		</tr>
-						       </tbody>
-						        <tfoot>
-						            <tr>
-						                <th class="tHead">Name</th>
-										<th class="tHead">Type</th>
-						                <th class="tHead">Manager Name</th>
-						                <th class="tHead">Total Amount</th>
-						                <th class="tHead">Status</th>
-						                <th class="tHead">Action</th>
-						            </tr>
-						        </tfoot>
-						    </table>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-12">
+									<h3>Forex List</h3>
+									<table id="forexTable" class="display table">
+										<thead>
+								           <tr>
+								               <th class="tHead">Name</th>
+											<th class="tHead">Type</th>
+								               <th class="tHead">Manager Name</th>
+								               <th class="tHead">Total Amount</th>
+								               <th class="tHead">Status</th>
+								               <th class="tHead">Action</th>
+								           </tr>
+									    </thead>
+									    <tbody>
+								       		<tr th:each="forexItem : ${forexLst}">
+								       			<td th:text="${forexItem.emp_nm}"></td>
+								       			<td th:text="${forexItem.emp_type}"></td>
+								       			<td th:text="${forexItem.manager_nm}"></td>
+								       			<td th:text="${forexItem.total_amt}"></td>
+								       			<td th:text="#{${forexItem.status}}"></td>
+								       			<td><a data-toggle="modal" th:attr="data-id=${forexItem.forex_id}" data-target="#myModal" class="modal-toggle btn btn-primary btn-md" data-title="View"><span class="glyphicon glyphicon-search"></span></a></td>
+								       		</tr>
+									      </tbody>
+										<tfoot>
+									        <tr>
+									            <th/>
+												<th/>
+									            <th/>
+									            <th/>
+									            <th/>
+									            <th/>
+									        </tr>
+										</tfoot>
+								   	</table>
+								</div>
+							</div>
+							<div th:if="${canApprove}">
+							<hr/>
+								<div class="row">
+									<div class="col-md-12">
+										<h3>Pending For Approval</h3>
+										<table id="forexApprovalTable" class="display table">
+											<thead>
+												<tr>
+													<th class="tHead">Name</th>
+													<th class="tHead">Type</th>
+									               	<th class="tHead">Creation Date</th>
+									               	<th class="tHead">Total Amount</th>
+									               	<th class="tHead">Action</th>
+									           </tr>
+										    </thead>
+										    <tfoot>
+										    	<tr>
+													<th/>
+													<th/>
+									               	<th/>
+									               	<th/>
+									               	<th/>
+									           </tr>
+										    </tfoot>
+										</table>
+									</div>
+								</div>
+							</div>							
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>	
 	</div>
-	
-	<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
-	      </div>
-	      <div class="modal-body" id="modal-body-popup"></div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-	  </div>
-	</div> -->
 	
 	<div class="modal fade" id="myModal">
 		<div class="modal-dialog modal-xl">

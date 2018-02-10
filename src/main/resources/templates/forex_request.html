@@ -270,7 +270,7 @@
 										</td>
 										<td>
 											<div class="form-group">
-												<input type="text" th:field="*{itineraryLst[0].food_per_day}" class="form-control itrFTAmt" pattern="^[0-9.]+" data-pattern-error="This field accepts only numbers required."/>
+												<input type="text" th:field="*{itineraryLst[0].food_per_day}" class="form-control itrFTAmt" required pattern="^[0-9.]+" data-pattern-error="This field accepts only numbers."/>
 												<div class="help-block with-errors"></div> 									
 											</div>
 										</td>

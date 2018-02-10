@@ -22,6 +22,7 @@ import com.finastra.finance.model.Forex;
 import com.finastra.finance.model.Itinerary;
 import com.finastra.finance.model.User;
 import com.finastra.finance.service.CountryCurService;
+import com.finastra.finance.service.EmployeeService;
 import com.finastra.finance.service.ForexService;
 import com.finastra.finance.service.UserService;
 
@@ -36,6 +37,9 @@ public class LoginController {
 	
 	@Autowired
 	private CountryCurService countryCurService;
+	
+	@Autowired
+	private EmployeeService employeeService;
 
 	@RequestMapping(value= {"/","/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
@@ -55,9 +59,12 @@ public class LoginController {
 	@RequestMapping(value="home/create-forex", method = RequestMethod.GET)
 	public ModelAndView createForexReq(){
 		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Forex frx = new Forex();
+		forexService.setInitialData(frx, auth.getName());
 		getUserName(modelAndView);
 		modelAndView.setViewName("forex_request");
-		modelAndView.addObject("forex", new Forex());
+		modelAndView.addObject("forex", frx);
 		modelAndView.addObject("countryCur", countryCurService.getCountryCurLst());
 		return modelAndView;
 	}
@@ -132,6 +139,7 @@ public class LoginController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		getUserName(modelAndView);
 		modelAndView.addObject("forexLst",forexService.getAllForexReqByUserId(auth.getName()));
+		modelAndView.addObject("canApprove", employeeService.canApprove(auth.getName()));
 		modelAndView.setViewName("home");
 		return modelAndView;
 	}

@@ -84,6 +84,8 @@ $(document).ready(function(){
 	$(document).on('click', '.removeButton', function() {
 			var $row = $(this).closest('.form-group');
 			$row.remove();
+			itineraryIndex--;
+			updateForexTotalAmt();
 			
 			 //Re-initialize the fields in the validator plugin
 		     $(document).validator('update');

@@ -13,4 +13,8 @@ public interface ForexService
 	public List<Forex> getAllForexReqByUserId(String email);
 	
 	public Forex getForex(int id);
+
+	public void setInitialData(Forex frx, String Email);
+	
+	public List<Forex> getAllForexForApproval(String email);
 }

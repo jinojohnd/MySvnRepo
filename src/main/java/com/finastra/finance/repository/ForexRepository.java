@@ -18,4 +18,10 @@ public interface ForexRepository  extends JpaRepository<Forex,Integer>
 	
 	@Query("From forex f where f.email=:email")
 	public List<Forex> findAllForexReqByUserId(@Param("email") String email);
+	
+	@Query("Select f.forex_id, f.emp_nm, f.emp_type, f.creation_dt, f.total_amt from forex f, employee e where e.email = f.email and e.manager_id =:id ")
+	public List<Forex> findAllForexPendingFromManager(@Param("id") String id);
+
+	@Query("Select f.forex_id, f.emp_nm, f.emp_type, f.creation_dt, f.total_amt from forex f, employee e where e.email = f.email and (e.manager_id =:id or f.status=:status)")
+	public List<Forex> findAllForexPendingFromFinance(@Param("id") String id, @Param("status") String status);
 }

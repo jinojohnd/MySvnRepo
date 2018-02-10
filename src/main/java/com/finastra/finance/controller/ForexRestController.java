@@ -28,15 +28,16 @@ public class ForexRestController
 		return forexService.getAllForexItemsByUser(auth.getName());
 	}
 	
-	/*@RequestMapping(value="home/view-forex", method = RequestMethod.GET)
-	public String viewForexReq(@RequestParam("id") int id)
+	@RequestMapping(value="home/forexEntriesForApproval", method = RequestMethod.GET)
+	public List<Forex> getAllForexEntriesForApproval()
 	{
-		return forexService.getForex(id).toJson();
-	}*/
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return forexService.getAllForexForApproval(auth.getName());
+	}
 	
 	@RequestMapping(value="home/view-forex", method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView viewForexReq(@RequestParam("id") int id)
+	public ModelAndView viewForexReq(@RequestParam("id") int id, @RequestParam("operation") String operation)
 	{
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("view_forex");
