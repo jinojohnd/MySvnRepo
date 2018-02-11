@@ -21,16 +21,38 @@
 					</div>
 					<div class="panel-body">
 						<div class="container-fluid">
+							<div sec:authorize="hasAnyRole('ROLE_EMP_MGR','ROLE_FIN_USR')">
+								<div class="row">
+									<div class="col-md-12">
+										<h3>Pending For Approval</h3>
+										<table id="forexApprovalTableHme" class="display table">
+											<thead>
+												<tr>
+													<th class="tHead">Name</th>
+													<th class="tHead">Type</th>
+									               	<th class="tHead">Creation Date</th>
+									               	<th class="tHead">Action</th>
+									           </tr>
+										    </thead>
+										    <tfoot>
+										    	<tr>
+													<th/><th/><th/><th/>
+									           </tr>
+										    </tfoot>
+										</table>
+									</div>
+								</div>
+								<hr/>
+							</div>
 							<div class="row">
 								<div class="col-md-12">
-									<h3>Forex List</h3>
-									<table id="forexTable" class="display table">
+									<h3>My Forex List</h3>
+									<table id="myForexTableHme" class="display table">
 										<thead>
 								           <tr>
 								               <th class="tHead">Name</th>
 											<th class="tHead">Type</th>
 								               <th class="tHead">Manager Name</th>
-								               <th class="tHead">Total Amount</th>
 								               <th class="tHead">Status</th>
 								               <th class="tHead">Action</th>
 								           </tr>
@@ -40,50 +62,16 @@
 								       			<td th:text="${forexItem.emp_nm}"></td>
 								       			<td th:text="${forexItem.emp_type}"></td>
 								       			<td th:text="${forexItem.manager_nm}"></td>
-								       			<td th:text="${forexItem.total_amt}"></td>
 								       			<td th:text="#{${forexItem.status}}"></td>
 								       			<td><a data-toggle="modal" th:attr="data-id=${forexItem.forex_id}" data-target="#myModal" class="modal-toggle btn btn-primary btn-md" data-title="View"><span class="glyphicon glyphicon-search"></span></a></td>
 								       		</tr>
 									      </tbody>
 										<tfoot>
 									        <tr>
-									            <th/>
-												<th/>
-									            <th/>
-									            <th/>
-									            <th/>
-									            <th/>
+									            <th/><th/><th/><th/><th/>
 									        </tr>
 										</tfoot>
 								   	</table>
-								</div>
-							</div>
-							<div th:if="${canApprove}">
-							<hr/>
-								<div class="row">
-									<div class="col-md-12">
-										<h3>Pending For Approval</h3>
-										<table id="forexApprovalTable" class="display table">
-											<thead>
-												<tr>
-													<th class="tHead">Name</th>
-													<th class="tHead">Type</th>
-									               	<th class="tHead">Creation Date</th>
-									               	<th class="tHead">Total Amount</th>
-									               	<th class="tHead">Action</th>
-									           </tr>
-										    </thead>
-										    <tfoot>
-										    	<tr>
-													<th/>
-													<th/>
-									               	<th/>
-									               	<th/>
-									               	<th/>
-									           </tr>
-										    </tfoot>
-										</table>
-									</div>
 								</div>
 							</div>							
 						</div>

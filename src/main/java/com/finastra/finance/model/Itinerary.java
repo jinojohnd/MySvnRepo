@@ -49,11 +49,11 @@ public class Itinerary
 	@Column(name = "food_days")
 	private int food_days;
 	
-	@Column(precision=13, scale=4, name="food_per_day")
+	@Column(precision=13, scale=2, name="food_per_day")
 	@NotNull(message = "*This field is required")
 	private BigDecimal food_per_day;
 	
-	@Column(precision=13, scale=4, name="food_total_amt")
+	@Column(precision=13, scale=2, name="food_total_amt")
 	@NotNull(message = "*This field is required")
 	private BigDecimal food_total_amt;
 	
@@ -64,11 +64,11 @@ public class Itinerary
 	@Column(name = "local_conveyance_days")
 	private int local_conveyance_days;
 	
-	@Column(precision=13, scale=4, name="local_conveyance_per_day")
+	@Column(precision=13, scale=2, name="local_conveyance_per_day")
 	@NotNull(message = "*This field is required")
 	private BigDecimal local_conveyance_per_day;
 	
-	@Column(precision=13, scale=4, name="local_conveyance_total_amt")
+	@Column(precision=13, scale=2, name="local_conveyance_total_amt")
 	@NotNull(message = "*This field is required")
 	private BigDecimal local_conveyance_total_amt;
 	
@@ -83,11 +83,11 @@ public class Itinerary
 	@Column(name = "hotel_days")
 	private int hotel_days;
 	
-	@Column(precision=13, scale=4, name="hotel_per_day")
+	@Column(precision=13, scale=2, name="hotel_per_day")
 	@NotNull(message = "*This field is required")
 	private BigDecimal hotel_per_day;
 	
-	@Column(precision=13, scale=4, name="hotel_total_amt")
+	@Column(precision=13, scale=2, name="hotel_total_amt")
 	@NotNull(message = "*This field is required")
 	private BigDecimal hotel_total_amt;
 	
@@ -102,17 +102,29 @@ public class Itinerary
 	@Column(name = "othr_days")
 	private int othr_days;
 	
-	@Column(precision=13, scale=4, name="othr_per_day")
+	@Column(precision=13, scale=2, name="othr_per_day")
 	@NotNull(message = "*This field is required")
 	private BigDecimal othr_per_day;
 	
-	@Column(precision=13, scale=4, name="othr_total_amt")
+	@Column(precision=13, scale=2, name="othr_total_amt")
 	@NotNull(message = "*This field is required")
 	private BigDecimal othr_total_amt;
 	
 	@Column(name = "othr_cur")
 	@NotEmpty(message = "*This field is required")
 	private String othr_cur;
+	
+	@Column(name = "itr_cur")
+	private String itr_cur;
+	
+	@Column(precision=13, scale=2, name="itr_total_amt")
+	private BigDecimal itr_total_amt;
+	
+	@Column(precision=13, scale=2, name="amt_in_cash")
+	private BigDecimal amt_in_cash;
+	
+	@Column(precision=13, scale=2, name="amt_on_card")
+	private BigDecimal amt_on_card;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "forex_id")
@@ -288,6 +300,38 @@ public class Itinerary
 
 	public String getOthr_cur() {
 		return othr_cur;
+	}
+
+	public String getItr_cur() {
+		return itr_cur;
+	}
+
+	public void setItr_cur(String itr_cur) {
+		this.itr_cur = itr_cur;
+	}
+
+	public BigDecimal getItr_total_amt() {
+		return itr_total_amt;
+	}
+
+	public void setItr_total_amt(BigDecimal itr_total_amt) {
+		this.itr_total_amt = itr_total_amt;
+	}
+
+	public BigDecimal getAmt_in_cash() {
+		return amt_in_cash;
+	}
+
+	public void setAmt_in_cash(BigDecimal amt_in_cash) {
+		this.amt_in_cash = amt_in_cash;
+	}
+
+	public BigDecimal getAmt_on_card() {
+		return amt_on_card;
+	}
+
+	public void setAmt_on_card(BigDecimal amt_on_card) {
+		this.amt_on_card = amt_on_card;
 	}
 
 	public void setOthr_cur(String othr_cur) {

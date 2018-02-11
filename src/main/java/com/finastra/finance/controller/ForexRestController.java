@@ -44,4 +44,14 @@ public class ForexRestController
 		modelAndView.addObject("forex",forexService.getForex(id));
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="home/approve/view-forex", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView openForexForApprove(@RequestParam("id") int id, @RequestParam("operation") String operation)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("view_forex");
+		modelAndView.addObject("forex",forexService.getForex(id));
+		return modelAndView;
+	}
 }

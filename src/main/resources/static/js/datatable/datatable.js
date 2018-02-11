@@ -1,26 +1,25 @@
 $(document).ready( function () {
-	 $('#forexTable').DataTable({
-		 "lengthMenu": [ 5, 15, 50, 100 ]
+	 $('#myForexTableHme').DataTable({
+		 "lengthMenu": [ 5, 10 ]
 	 });
 	 
-	 var table = $('#forexTablefromexisting').DataTable({
-			"sAjaxSource": "forexEntries",
+	 var table = $('#forexPendingApproval').DataTable({
+			"sAjaxSource": "forexEntriesForApproval",
 			"sAjaxDataProp": "",
 			"lengthMenu": [ 5, 15, 50, 100 ], 
 			"order": [[ 0, "asc" ]],
 			"columns": [
 				{
 					mRender: function ( data, type, row ) {
-						return '<a class ="hyper" href=./create-forex?id='+row[0]+'>'+row[1]+'</a></td>';
+						return '<a class ="hyper" href=./approve/approve-forex?id='+row[0]+'>'+row[1]+'</a></td>';
 					}
 				},
 				{ "mData": 2 },
-				{ "mData": 3 },
-				{ "mData": 4 }
+				{ "mData": 3 }
 			]
 	 });
 	 
-	 var table = $('#forexApprovalTable').DataTable({
+	 var table = $('#forexApprovalTableHme').DataTable({
 			"sAjaxSource": "home/forexEntriesForApproval",
 			"sAjaxDataProp": "",
 			"lengthMenu": [ 5, 15, 50, 100 ], 
@@ -29,11 +28,10 @@ $(document).ready( function () {
 				{ "mData": 1},
 				{ "mData": 2 },
 				{ "mData": 3 },
-				{ "mData": 4 },
 				{
 					mRender: function ( data, type, row ) {
 						/*return '<a href="./home/view-forex?id='+row[0]+'" class="btn btn-primary btn-md" data-title="Edit"><span class="glyphicon glyphicon-search"></span></a></td>';*/
-						return '<a data-toggle="modal" data-id="'+row[0]+'" data-target="#myModal" class="modal-toggle-approve btn btn-primary btn-md" data-title="Approve"><span class="glyphicon glyphicon-question-sign"></span></a></td>';
+						return '<a href="home/approve/approve-forex?id='+row[0]+'" class="btn btn-primary btn-md" data-title="Approve"><span class="glyphicon glyphicon-question-sign"></span></a></td>';
 					}
 				}
 			]

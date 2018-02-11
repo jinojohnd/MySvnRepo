@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -130,18 +131,6 @@ public class Forex
 	@NotEmpty(message = "*This field is required")
 	private String request_type;
 	
-	@Column(precision=13, scale=4, name="amt_in_cash")
-	@NotNull(message = "*This field is required")
-	private BigDecimal amt_in_cash;
-	
-	@Column(precision=13, scale=4, name="amt_on_card")
-	@NotNull(message = "*This field is required")
-	private BigDecimal amt_on_card;
-	
-	@Column(precision=13, scale=4, name="total_amt")
-	@NotNull(message = "*This field is required")
-	private BigDecimal total_amt;
-	
 	@Column(name = "creation_dt")
 	@Temporal(TemporalType.DATE)
 	private Date creation_dt;
@@ -158,12 +147,14 @@ public class Forex
 	@OneToMany(mappedBy = "forex", cascade = CascadeType.ALL)
 	List<Itinerary> itineraryLst = new ArrayList<Itinerary>();
 	
+	@OneToMany(mappedBy = "forex", cascade = CascadeType.ALL)
+	List<ForexDetails> forexDetailsLst = new ArrayList<ForexDetails>();
+	
 	public Forex(int forex_id, String emp_type, String emp_nm, String mother_nm, String email, String mobile,
 			String manager_nm, String forex_card, String purpose_of_trip, String billable, String proj_code,
 			String proj_nm, String opp_num, String client_nm, Date dob_dt, String add_line_1, String add_line_2,
 			String add_line_3, String passport_num, Date passport_iss_dt, Date passport_exp_dt, String city, String uid,
-			String request_type, BigDecimal amt_in_cash, BigDecimal amt_on_card, BigDecimal total_amt, String comments,
-			List<Itinerary> itineraryLst) {
+			String request_type, String comments, List<Itinerary> itineraryLst, List<ForexDetails> forexDetailsLst){
 		super();
 		this.forex_id = forex_id;
 		this.emp_type = emp_type;
@@ -189,26 +180,16 @@ public class Forex
 		this.city = city;
 		this.uid = uid;
 		this.request_type = request_type;
-		this.amt_in_cash = amt_in_cash;
-		this.amt_on_card = amt_on_card;
-		this.total_amt = total_amt;
 		this.comments = comments;
 		this.itineraryLst = itineraryLst;
+		this.forexDetailsLst = forexDetailsLst;
 	}
 
 	public Forex() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public Forex(String emp_type, String emp_nm, String manager_nm, BigDecimal total_amt) {
-		super();
-		this.emp_type = emp_type;
-		this.emp_nm = emp_nm;
-		this.manager_nm = manager_nm;
-		this.total_amt = total_amt;
-	}
-
+	
 	public List<Itinerary> getItineraryLst() {
 		return itineraryLst;
 	}
@@ -409,30 +390,6 @@ public class Forex
 	public void setRequest_type(String request_type) {
 		this.request_type = request_type;
 	}
-
-	public BigDecimal getAmt_in_cash() {
-		return amt_in_cash;
-	}
-
-	public void setAmt_in_cash(BigDecimal amt_in_cash) {
-		this.amt_in_cash = amt_in_cash;
-	}
-
-	public BigDecimal getAmt_on_card() {
-		return amt_on_card;
-	}
-
-	public void setAmt_on_card(BigDecimal amt_on_card) {
-		this.amt_on_card = amt_on_card;
-	}
-
-	public BigDecimal getTotal_amt() {
-		return total_amt;
-	}
-
-	public void setTotal_amt(BigDecimal total_amt) {
-		this.total_amt = total_amt;
-	}
 	
 	public String getComments() {
 		return comments;
@@ -445,6 +402,11 @@ public class Forex
 	public void addItinerary(Itinerary itinerary)
 	{
 		itinerary.setForex(this);
+	}
+	
+	public void addForexDetails(ForexDetails forexDetails)
+	{
+		forexDetails.setForex(this);
 	}
 
 	public Date getCreation_dt() {
@@ -471,6 +433,14 @@ public class Forex
 		this.input_user_mail = input_user_mail;
 	}
 
+	public List<ForexDetails> getForexDetailsLst() {
+		return forexDetailsLst;
+	}
+
+	public void setForexDetailsLst(List<ForexDetails> forexDetailsLst) {
+		this.forexDetailsLst = forexDetailsLst;
+	}
+
 	public String toJson() {
 		
 		StringBuffer forex = new StringBuffer();
@@ -482,7 +452,6 @@ public class Forex
 				+ dob_dt + "\", \"add_line_1\":\"" + add_line_1 + "\", \"add_line_2\":\"" + add_line_2 + "\", \"add_line_3\":\"" + add_line_3
 				+ "\", \"passport_num\":\"" + passport_num + "\", \"passport_iss_dt\":\"" + passport_iss_dt + "\", \"passport_exp_dt\":\""
 				+ passport_exp_dt + "\", \"city\":\"" + city + "\", \"uid\":\"" + uid + "\", \"request_type\":\"" + request_type
-				+ "\", \"amt_in_cash\":\"" + amt_in_cash + "\", \"amt_on_card\":\"" + amt_on_card + "\", \"total_amt\":\"" + total_amt
 				+ "\", \"comments\":\"" + comments +"\",\"itinerary\":");
 		
 		for(int i=0; i<this.itineraryLst.size(); i++)

@@ -42,7 +42,7 @@ public class User {
 	@NotEmpty(message = "*Please provide your last name")
 	private String lastName;
 	@Column(name = "active")
-	private int active;
+	private String active;
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "tbl_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
@@ -87,11 +87,11 @@ public class User {
 		this.email = email;
 	}
 
-	public int getActive() {
+	public String getActive() {
 		return active;
 	}
 
-	public void setActive(int active) {
+	public void setActive(String active) {
 		this.active = active;
 	}
 

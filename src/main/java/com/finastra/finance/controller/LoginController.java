@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.finastra.finance.model.Forex;
+import com.finastra.finance.model.ForexDetails;
 import com.finastra.finance.model.Itinerary;
 import com.finastra.finance.model.User;
 import com.finastra.finance.service.CountryCurService;
@@ -48,14 +49,6 @@ public class LoginController {
 		return modelAndView;
 	}
 	
-	
-	@RequestMapping(value="/registration", method = RequestMethod.GET)
-	public ModelAndView registration(){
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("registration");
-		return modelAndView;
-	}
-	
 	@RequestMapping(value="home/create-forex", method = RequestMethod.GET)
 	public ModelAndView createForexReq(){
 		ModelAndView modelAndView = new ModelAndView();
@@ -69,7 +62,7 @@ public class LoginController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="home/create-forex", method = RequestMethod.GET,  params = "id")
+	/*@RequestMapping(value="home/create-forex", method = RequestMethod.GET,  params = "id")
 	public ModelAndView createForexReqFromExisting(@RequestParam("id") int id){
 		ModelAndView modelAndView = new ModelAndView();
 		getUserName(modelAndView);
@@ -77,13 +70,22 @@ public class LoginController {
 		modelAndView.addObject("forex", forexService.getForex(id));
 		modelAndView.addObject("countryCur", countryCurService.getCountryCurLst());
 		return modelAndView;
-	}
+	}*/
 	
-	@RequestMapping(value="home/list-forex", method = RequestMethod.GET)
+	@RequestMapping(value="home/pending-approval", method = RequestMethod.GET)
 	public ModelAndView createForexReqFromExisiting(){
 		ModelAndView modelAndView = new ModelAndView();
 		getUserName(modelAndView);
-		modelAndView.setViewName("list_forex");
+		modelAndView.setViewName("list_pending_forex");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="home/approve/approve-forex", method = RequestMethod.GET, params = "id")
+	public ModelAndView openForexForApproval(@RequestParam("id") int id){
+		ModelAndView modelAndView = new ModelAndView();
+		getUserName(modelAndView);
+		modelAndView.setViewName("open_approve_forex");
+		modelAndView.addObject("fId", id);
 		return modelAndView;
 	}
 	
@@ -102,32 +104,15 @@ public class LoginController {
 			{
 				forex.addItinerary(itr);
 			}
+			for(ForexDetails fDtls:forex.getForexDetailsLst())
+			{
+				forex.addForexDetails(fDtls);
+			}
 			
 			preSubmitAction(forex);
 			forexService.save(forex);
 			modelAndView.setViewName("success");
 			modelAndView.addObject("successMessage","Sucessfully submitted the Forex Request Form.");
-		}
-		return modelAndView;
-	}
-	
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
-		ModelAndView modelAndView = new ModelAndView();
-		User userExists = userService.findUserByEmail(user.getEmail());
-		if (userExists != null) {
-			bindingResult
-					.rejectValue("email", "error.user",
-							"There is already a user registered with the email provided");
-		}
-		if (!bindingResult.hasErrors()) {
-			modelAndView.setViewName("registration");
-		} else {
-			userService.saveUser(user);
-			modelAndView.addObject("successMessage", "User has been registered successfully");
-			modelAndView.addObject("user", new User());
-			modelAndView.setViewName("registration");
-			
 		}
 		return modelAndView;
 	}

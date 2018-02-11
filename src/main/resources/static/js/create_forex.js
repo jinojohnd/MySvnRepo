@@ -73,11 +73,18 @@ $(document).ready(function(){
         .find('[name="othr_days"]').attr('name', 'itineraryLst[' + itineraryIndex + '].othr_days').end()
         .find('[name="othr_per_day"]').attr('name', 'itineraryLst[' + itineraryIndex + '].othr_per_day').prop('required',true).end()
         .find('[name="othr_total_amt"]').attr('name', 'itineraryLst[' + itineraryIndex + '].othr_total_amt').end()
-        .find('[name="othr_cur"]').attr('name', 'itineraryLst[' + itineraryIndex + '].othr_cur').prop('required',true).end();
-    
+        .find('[name="othr_cur"]').attr('name', 'itineraryLst[' + itineraryIndex + '].othr_cur').prop('required',true).end()    
+    	.find('[name="amt_in_cash"]').attr('name', 'itineraryLst[' + itineraryIndex + '].amt_in_cash').prop('required',true).end()
+    	.find('[name="amt_on_card"]').attr('name', 'itineraryLst[' + itineraryIndex + '].amt_on_card').end()
+    	.find('[name="itr_total_amt"]').attr('name', 'itineraryLst[' + itineraryIndex + '].itr_total_amt').end()
+    	.find('[name="itr_cur"]').attr('name', 'itineraryLst[' + itineraryIndex + '].itr_cur').end();    
     
     //Re-initialize the fields in the validator plugin
-    $(document).validator('update');    
+    $(document).validator('update');
+    
+    $('html, body').animate({
+        scrollTop: $($clone).offset().top
+    }, 1000);
     })
    	
 	// Remove button click handler
@@ -85,7 +92,7 @@ $(document).ready(function(){
 			var $row = $(this).closest('.form-group');
 			$row.remove();
 			itineraryIndex--;
-			updateForexTotalAmt();
+			updateForexDetailTbl();
 			
 			 //Re-initialize the fields in the validator plugin
 		     $(document).validator('update');
@@ -97,40 +104,40 @@ $(document).ready(function(){
     	updateNoofDays(index, elemnt);  
     });
     
-    $(document).on('blur', '.itrFTAmt', function() {
+    $(document).on('blur', '.itrFTPerDay', function() {
     	var elemnt = this.name;
     	var index = (elemnt.substr(elemnt.indexOf('[')+1)).charAt(0);
     	var amt = this.value;
     	var numDays = $('[name="itineraryLst['+index+'].food_days"]').val();
     	$('[name="itineraryLst['+index+'].food_total_amt"]').val(numDays * amt);
-    	updateForexTotalAmt();
+    	updateItrTotalAmt(index);
     });
     
-    $(document).on('blur', '.itrLcTAmt', function() {
+    $(document).on('blur', '.itrLcPerDay', function() {
     	var elemnt = this.name;
     	var index = (elemnt.substr(elemnt.indexOf('[')+1)).charAt(0);
     	var amt = this.value;
     	var numDays = $('[name="itineraryLst['+index+'].local_conveyance_days"]').val();
     	$('[name="itineraryLst['+index+'].local_conveyance_total_amt"]').val(numDays * amt);
-    	updateForexTotalAmt();
+    	updateItrTotalAmt(index);
     });
     
-    $(document).on('blur', '.itrHcTAmt', function() {
+    $(document).on('blur', '.itrHcPerDay', function() {
     	var elemnt = this.name;
     	var index = (elemnt.substr(elemnt.indexOf('[')+1)).charAt(0);
     	var amt = this.value;
     	var numDays = $('[name="itineraryLst['+index+'].hotel_days"]').val();
     	$('[name="itineraryLst['+index+'].hotel_total_amt"]').val(numDays * amt);
-    	updateForexTotalAmt();
+    	updateItrTotalAmt(index);
     });
     
-    $(document).on('blur', '.itrOmTAmt', function() {
+    $(document).on('blur', '.itrOthPerDay', function() {
     	var elemnt = this.name;
     	var index = (elemnt.substr(elemnt.indexOf('[')+1)).charAt(0);
     	var amt = this.value;
     	var numDays = $('[name="itineraryLst['+index+'].othr_days"]').val();
     	$('[name="itineraryLst['+index+'].othr_total_amt"]').val(numDays * amt);
-    	updateForexTotalAmt();
+    	updateItrTotalAmt(index);
     });
     
     $(document).on('change', '.itrNumDays', function() {
@@ -141,7 +148,7 @@ $(document).ready(function(){
     	var typeNm = fieldCompleteName.substr(0, fieldCompleteName.indexOf('_'));
     	var amt = $('[name="itineraryLst['+index+'].'+typeNm+'_days"]').val();
     	$('[name="itineraryLst['+index+'].'+typeNm+'_total_amt"]').val(numDays * amt);
-    	updateForexTotalAmt();    	
+    	updateItrTotalAmt(index);	
     });
     
     $(document).on('blur', "#forex_card", function() {
@@ -158,6 +165,20 @@ $(document).ready(function(){
     	$('[name="itineraryLst['+index+'].local_conveyance_cur"]').val(cur);
     	$('[name="itineraryLst['+index+'].hotel_cur"]').val(cur);
     	$('[name="itineraryLst['+index+'].othr_cur"]').val(cur);
+    	$('[name="itineraryLst['+index+'].itr_cur"]').val(cur);
+    });
+    
+    $(document).on('blur', '.amtInCsh', function() {
+    	var elemnt = this.name;
+    	var index = (elemnt.substr(elemnt.indexOf('[')+1)).charAt(0);
+    	var amtInCash = this.value != "" ? parseFloat(this.value):0;
+    	
+    	var totalAmt = $('[name="itineraryLst['+index+'].itr_total_amt"]').val();
+    	if(totalAmt != "")
+    	{
+    		$('[name="itineraryLst['+index+'].amt_on_card"]').val(totalAmt - amtInCash);
+    	}
+    	updateForexDetailTbl();
     });
     
     function updateNoofDays(index, elemnt)
@@ -186,7 +207,7 @@ $(document).ready(function(){
     	updateTotalAmt(index,'local_conveyance_days');
     	updateTotalAmt(index,'hotel_days');
     	updateTotalAmt(index,'othr_days');
-    	updateForexTotalAmt();
+    	updateItrTotalAmt(index);
     }
     
     function getDtDiff(returnDt, deptDt)
@@ -210,7 +231,75 @@ $(document).ready(function(){
     	$('[name="itineraryLst['+index+'].'+typeNm+'_total_amt"]').val(numDays * amt);
     }
     
-    function updateForexTotalAmt()
+    function updateForexDetailTbl()
+    {
+    	var curAmtList = [];
+    	for(var i=0; i<=itineraryIndex; i++)
+		{
+    		var itrCur = $('[name="itineraryLst['+i+'].itr_cur"]').val();
+    		var amtInCash = parseFloat($('[name="itineraryLst['+i+'].amt_in_cash"]').val());
+    		var amtOnCard = parseFloat($('[name="itineraryLst['+i+'].amt_on_card"]').val());
+    		var itrTotalAmt = parseFloat($('[name="itineraryLst['+i+'].itr_total_amt"]').val());
+    		var items = [];
+    		if(itrCur != "" && amtInCash >=0 && amtOnCard >=0 && itrTotalAmt>=0)
+    		{
+    			var index = getItemIndex(curAmtList, itrCur);
+	    		if(index == -1)
+				{   
+	    			items.push(itrCur);
+	    			items.push(amtInCash);
+	    	    	items.push(amtOnCard);
+	    	    	items.push(itrTotalAmt);
+	    	    	curAmtList.push(items);
+				}
+		    	else
+		    	{
+		    		items = curAmtList[index];
+		    		var updatedItems = [];
+		    		updatedItems.push(itrCur);
+		    		updatedItems.push(items[1] + amtInCash);
+		    		updatedItems.push(items[2] + amtOnCard);
+		    		updatedItems.push(items[3] + itrTotalAmt);
+		    		curAmtList[index] = updatedItems;
+		    	}
+    		}
+		}
+    	var $tblBody = $("#forex-amt-dtls");
+    	var $template = $('#forexDtlTemplate');
+    	if(curAmtList.length > 0)
+		{
+    		$tblBody.empty();    	
+	    	for(var j=0; j<curAmtList.length; j++)
+			{
+				var cur = curAmtList[j][0];
+				var amtInCash = curAmtList[j][1];
+				var amtOnCard = curAmtList[j][2];
+				var totalAmt = curAmtList[j][3];
+				
+				var $clone = $template
+				            .clone()
+				            .removeClass('hide')
+				            .removeAttr('id')
+				            .attr('data-itinerary-index', j);
+				
+				$clone
+		        .find('[name="currency"]').attr('name', 'forexDetailsLst[' + j + '].currency').end()
+		        .find('[name="amt_in_cash"]').attr('name', 'forexDetailsLst[' + j + '].amt_in_cash').end()
+		        .find('[name="amt_on_card"]').attr('name', 'forexDetailsLst[' + j + '].amt_on_card').end()
+		        .find('[name="total_amt"]').attr('name', 'forexDetailsLst[' + j + '].total_amt').end();
+				
+				$tblBody.append($clone);
+				
+				$('[name="forexDetailsLst['+j+'].currency"]').val(cur);
+				$('[name="forexDetailsLst['+j+'].amt_in_cash"]').val(amtInCash);
+				$('[name="forexDetailsLst['+j+'].amt_on_card"]').val(amtOnCard);
+				$('[name="forexDetailsLst['+j+'].total_amt"]').val(totalAmt);
+			}
+	    	$tblBody.append($template);
+		}
+    }
+    
+    function updateItrTotalAmt(index)
     {
     	var itrTotalAmt = 0;
     	var foodTotlAmt = 0;
@@ -218,20 +307,29 @@ $(document).ready(function(){
     	var localConvTotlAmt = 0;
     	var othrTotlAmt = 0;
     	
-    	for(var i=0; i<=itineraryIndex; i++)
-		{
-    		foodTotlAmt = $('[name="itineraryLst['+i+'].food_total_amt"]').val() != "" ? parseFloat($('[name="itineraryLst['+i+'].food_total_amt"]').val()) : 0;
-    		hotelTotlAmt = $('[name="itineraryLst['+i+'].hotel_total_amt"]').val() !="" ? parseFloat( $('[name="itineraryLst['+i+'].hotel_total_amt"]').val()) : 0;
-    		localConvTotlAmt = $('[name="itineraryLst['+i+'].local_conveyance_total_amt"]').val() !="" ? parseFloat($('[name="itineraryLst['+i+'].local_conveyance_total_amt"]').val()) : 0;
-    		othrTotlAmt = $('[name="itineraryLst['+i+'].othr_total_amt"]').val() != "" ? parseFloat($('[name="itineraryLst['+i+'].othr_total_amt"]').val()) : 0;
+    	foodTotlAmt = $('[name="itineraryLst['+index+'].food_total_amt"]').val() != "" ? parseFloat($('[name="itineraryLst['+index+'].food_total_amt"]').val()) : 0;
+		hotelTotlAmt = $('[name="itineraryLst['+index+'].hotel_total_amt"]').val() !="" ? parseFloat( $('[name="itineraryLst['+index+'].hotel_total_amt"]').val()) : 0;
+		localConvTotlAmt = $('[name="itineraryLst['+index+'].local_conveyance_total_amt"]').val() !="" ? parseFloat($('[name="itineraryLst['+index+'].local_conveyance_total_amt"]').val()) : 0;
+		othrTotlAmt = $('[name="itineraryLst['+index+'].othr_total_amt"]').val() != "" ? parseFloat($('[name="itineraryLst['+index+'].othr_total_amt"]').val()) : 0;
   
-    		itrTotalAmt = itrTotalAmt + foodTotlAmt + hotelTotlAmt + localConvTotlAmt + othrTotlAmt;    	
+    	itrTotalAmt = itrTotalAmt + foodTotlAmt + hotelTotlAmt + localConvTotlAmt + othrTotlAmt;
+    	$('[name="itineraryLst['+index+'].itr_total_amt"]').val(itrTotalAmt);
+    	var cash = $('[name="itineraryLst['+index+'].amt_in_cash"]').val() != "" ? parseFloat($('[name="itineraryLst['+index+'].amt_in_cash"]').val()):0;
+    	$('[name="itineraryLst['+index+'].amt_on_card"]').val(itrTotalAmt-cash);
+    	updateForexDetailTbl();
+    }
+    
+    function getItemIndex(curAmtList, itrCur)
+    {
+    	for(var i=0; i<curAmtList.length; i++)
+		{
+    		if(curAmtList[i][0] === itrCur)
+    		{
+    			return curAmtList[i][0].indexOf(itrCur);
+    		}
 		}
     	
-    	$('[name="amt_on_card"]').val(itrTotalAmt);
-    	$('[name="amt_in_cash"]').val(0);
-    	var amtOnCash = $('[name="amt_in_cash"]').val() != "" ? parseFloat($('[name="amt_in_cash"]').val()) : 0;
-    	$('[name="total_amt"]').val(itrTotalAmt + amtOnCash);
+    	return -1;
     }
     
 });
