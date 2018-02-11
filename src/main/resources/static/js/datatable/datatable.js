@@ -1,4 +1,9 @@
 $(document).ready( function () {
+	
+	$('#tblHolidayList').DataTable(
+	);
+	
+	
 	 $('#myForexTableHme').DataTable({
 		 "lengthMenu": [ 5, 10 ]
 	 });
@@ -40,6 +45,22 @@ $(document).ready( function () {
 	 
 	 var infoModal = $('#myModal');
 	 var json;
+	 $(document).on('click', '.modal-holiday-toggle', function(){	     	 
+		 $.get( "./view-holiday?id=" + $(this).data('id'), function( data ) {
+			 var r = data;
+			 $("#holidayModalPopup").html(data);
+		 });
+	    });
+	 
+	  $(document).on('focus', '.mydatepickers', function() {
+		     	 $(this).datepicker({
+		 				format: 'dd-M-yyyy',
+		 				todayHighlight: true,
+		 				autoclose: true,
+		 			});			
+		     }); 
+
+	 
 	 $(document).on('click', '.modal-toggle', function(){
 	       /* $.ajax({
 	            type: "GET",

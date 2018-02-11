@@ -32,6 +32,7 @@
 	      <a class="glyphicon glyphicon-home homelink padding" th:href="@{/home}"></a>
 		  <a class="link-3 padding divider-vertical" th:href="@{/home/create-forex}">Forex Request</a>
 		  <a class="link-3 padding divider-vertical" th:href="@{/home}">Pending Items</a>
+		  <a class="link-3 padding divider-vertical" th:href="@{/home/admin}">Administration</a>
 		  <a class="glyphicon glyphicon-off logoutlink navbar-right" title="Logout" th:href="@{/logout}"></a>
 		</nav>
 		
@@ -42,6 +43,17 @@
 		      <ul class="nav navbar-nav">
 		      	<li><a th:href="@{/home/create-forex}">New Request</a></li>
 		      	<li sec:authorize="hasAnyRole('ROLE_EMP_MGR','ROLE_FIN_USR')"><a th:href="@{/home/pending-approval}">Pending for Approval</a></li>
+		      </ul>
+		</nav>
+	</th:block>
+	
+	<th:block th:fragment="side-bar-admin">
+		<nav class="navbar side-bar-nav">	  
+		      <ul class="nav navbar-nav">
+		      	<li><a th:href="@{/home/holiday-list}">Holiday List</a></li>
+		      	<li><a th:href="@{/home/emp-list}">Employee List</a></li>
+		      	<li><a th:href="@{/home/user-list}">User List</a></li>
+		      	<li><a th:href="@{/home/role-list}">Role List</a></li>
 		      </ul>
 		</nav>
 	</th:block>

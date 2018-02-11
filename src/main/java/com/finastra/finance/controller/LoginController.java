@@ -20,11 +20,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.finastra.finance.model.Forex;
 import com.finastra.finance.model.ForexDetails;
+import com.finastra.finance.model.Holiday;
 import com.finastra.finance.model.Itinerary;
 import com.finastra.finance.model.User;
 import com.finastra.finance.service.CountryCurService;
 import com.finastra.finance.service.EmployeeService;
 import com.finastra.finance.service.ForexService;
+import com.finastra.finance.service.HolidayService;
 import com.finastra.finance.service.UserService;
 
 @Controller
@@ -35,6 +37,9 @@ public class LoginController {
 	
 	@Autowired
 	private ForexService forexService;
+	
+	@Autowired
+	private HolidayService holidayService;
 	
 	@Autowired
 	private CountryCurService countryCurService;
@@ -126,6 +131,47 @@ public class LoginController {
 		modelAndView.addObject("forexLst",forexService.getAllForexReqByUserId(auth.getName()));
 		modelAndView.addObject("canApprove", employeeService.canApprove(auth.getName()));
 		modelAndView.setViewName("home");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value= "/home/admin", method = RequestMethod.GET)
+	public ModelAndView getAdministrationModule()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		getUserName(modelAndView);
+		modelAndView.setViewName("admin");
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value= "/home/holiday-list", method = RequestMethod.GET)
+	public ModelAndView getHolidayList()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		getUserName(modelAndView);
+		modelAndView.setViewName("holiday");
+		modelAndView.addObject("holiday", holidayService.findAll());
+		return modelAndView;
+	}
+	
+	@RequestMapping(value= "/home/view-holiday", method = RequestMethod.GET)
+	public ModelAndView editHolidayDtls(@RequestParam("id") int id)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("holidayEdit");
+		modelAndView.addObject("holiday", holidayService.getHolidayById(id));
+		modelAndView.addObject("id", id);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value= "/home/update-holiday", method = RequestMethod.POST)
+	public ModelAndView updateHolidayDtls(@Valid Holiday holiday)
+	{
+		holidayService.update(holiday);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("holiday");
+		modelAndView.addObject("holiday", holidayService.findAll());
 		return modelAndView;
 	}
 

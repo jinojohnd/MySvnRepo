@@ -76,20 +76,25 @@ nav {
 	padding-bottom: 15px;
 }
 
+
 .navbar-nav>li>a
 {
 	color: #cb42ab;
 	margin-top: 1px;
 	transition: 0.7s;
-	width: 11.5pc;
+	width: 185px;
 }
 
+.navbar-nav>li
+{
+	width: 185px;
+}
 .navbar-nav>li>a:hover, .navbar-nav>li>a:focus
 {
 	color: #ffffff !important;
 	border-radius: 1px !important;
 	background-color: #8567ff !important;
-	width: 11.5pc;
+	width: 185px;
 }
 
 hr {

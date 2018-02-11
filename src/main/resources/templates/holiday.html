@@ -1,0 +1,63 @@
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/datatable/dataTables.min.css}" />	
+  	<div th:replace="fragments/header :: header-css"/>
+	<script th:src="@{/js/datatable/datatable.js}"></script>
+	<script th:src="@{/js/datatable/dataTables.min.js}"></script>
+</head>
+
+<body>
+<div th:replace="fragments/header :: header"/>	
+	<div class="container-fluid">
+		<div class="modal-body row-fluid">
+			<div class="col-md-3">
+				<div th:replace="fragments/header :: side-bar-admin"/>
+			</div>
+			<div class="col-md-9">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<span th:utext="${userName}"></span>
+					</div>
+					<div class="panel-body">
+						<div class="container-fluid">							
+								<div class="row-fluid">									
+									<h4><b>Holidays</b></h4>
+									<hr/>
+											<table id = "tblHolidayList" class="table">
+												<thead>
+													<th scope ="col">Date</th>
+													<th scope ="col">Description</th>
+													<th scope ="col"></th>
+													<th scope ="col"></th>
+												</thead>
+												<tbody>
+												<!-- Departure Date -->
+												<tr th:each="h:${holiday}">
+													<td th:text="${#dates.format(h.date,'dd-MMM-yyyy')}"/>
+													<td><input type="text" readonly class="plaintext" th:value="${h.description}"/></td>
+									       			<td><a data-toggle="modal" th:attr="data-id=${h.holiday_id}" data-target="#holidayModal" class="modal-holiday-toggle btn btn-primary btn-md" data-title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
+									       			<td><a data-toggle="modal" th:attr="data-id=${h.holiday_id}" data-target="#holidayModal" class="modal-holiday-toggle btn btn-primary btn-md" data-title="Delete"><span class="glyphicon glyphicon-remove-sign"></span></a></td>
+												</tr>					
+												</tbody>											
+											</table>																			
+								</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="holidayModal">
+		<div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+	          <h3 class="modal-title">Holiday</h3>
+	        </div>
+	        <div class="modal-body" id="holidayModalPopup">			        
+ 			 </div>
+			</div>	        					
+	      </div>
+	    </div>
+</body>
+
