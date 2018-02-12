@@ -17,4 +17,10 @@ public interface ForexService
 	public void setInitialData(Forex frx, String Email);
 	
 	public List<Forex> getAllForexForApproval(String email);
+	
+	public void approveForex(int id, String action);
+
+	public void updateForex(Forex forex, int id, String string);
+	
+	public void completeForex(Forex oldForex, Forex newForex);
 }

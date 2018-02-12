@@ -3,16 +3,24 @@ package com.finastra.finance.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.finastra.finance.model.Employee;
 import com.finastra.finance.model.Forex;
+import com.finastra.finance.model.ForexDetails;
+import com.finastra.finance.model.Itinerary;
 import com.finastra.finance.repository.EmployeeRepository;
+import com.finastra.finance.repository.ForexDetailsRepository;
 import com.finastra.finance.repository.ForexRepository;
 import com.finastra.finance.repository.ItineraryRepository;
 
 @Service
+@Transactional
 public class ForexServiceImpl implements ForexService
 {
 	@Autowired
@@ -23,6 +31,9 @@ public class ForexServiceImpl implements ForexService
 	
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
+	@Autowired
+	private ForexDetailsRepository forexDtlsRepository;
 	
 	@Override
 	public void save(Forex forex) 
@@ -41,6 +52,7 @@ public class ForexServiceImpl implements ForexService
 		Forex f = new Forex();
 		f = forexRepository.findOne(id);
 		f.setItineraryLst(itineraryRepository.getItineraryLst(id));
+		f.setForexDetailsLst(forexDtlsRepository.getForexDetailsLst(id));
 		return f;
 	}
 
@@ -71,18 +83,114 @@ public class ForexServiceImpl implements ForexService
 	public List<Forex> getAllForexForApproval(String email) 
 	{
 		Employee emp = employeeRepository.getEmployeeByEmail(email);
-		String financeSts = "STS_02";
+		List<String> forexSts = new ArrayList<String>();
 		List<Forex> frxLst = new ArrayList<Forex>();
 		if("MANAGER".equals(emp.getEmp_role()))
 		{
-			frxLst.addAll(forexRepository.findAllForexPendingFromManager(emp.getEmp_no()));
+			forexSts.add("STS_01");
+			frxLst.addAll(forexRepository.findAllForexPendingFromManager(emp.getEmp_no(), forexSts));
 		}
 		else if("FINANCE".equals(emp.getEmp_role()))
 		{
-			frxLst.addAll(forexRepository.findAllForexPendingFromFinance(emp.getEmp_no(), financeSts));
+			forexSts.add("STS_02");
+			frxLst.addAll(forexRepository.findAllForexPendingFromFinance(emp.getEmp_no(), forexSts));
 		}
 		
 		return frxLst;
+	}
+
+	@Override
+	public void approveForex(int id, String action) 
+	{
+		Forex f = getForex(id);
+		//Manager approval
+		if("STS_01".equals(f.getStatus()) && "approve".equals(action))
+		{
+			f.setStatus("STS_02");
+		}
+		//Manager reject
+		else if("STS_01".equals(f.getStatus()) && "reject".equals(action))
+		{
+			f.setStatus("STS_03");
+		}
+		//Finance Team reject
+		else if("STS_02".equals(f.getStatus()) && "reject".equals(action))
+		{
+			f.setStatus("STS_04");
+		}
+		//Finance team approval.
+		else
+		{
+			f.setStatus("STS_05");
+		}
+
+		forexRepository.saveAndFlush(f);
+	}
+
+	@Override
+	@Transactional
+	public void updateForex(Forex forex, int id, String action) 
+	{
+		Forex originalFrx = getForex(id);
+		originalFrx.setStatus(forex.getStatus());
+		originalFrx.setInput_user_mail(forex.getInput_user_mail());
+		completeForex(originalFrx,forex);
+	
+		//Delete and insert
+		List<Itinerary> itrLst = itineraryRepository.getItineraryLst(id);
+		itineraryRepository.deleteInBatch(itrLst);
+		
+		List<ForexDetails> fdsLst = forexDtlsRepository.getForexDetailsLst(id);
+		forexDtlsRepository.deleteInBatch(fdsLst);		
+		
+		originalFrx.getItineraryLst().clear();
+		for(Itinerary itr:forex.getItineraryLst())
+		{
+			if(itr.getForex()!=null)
+			{
+				originalFrx.getItineraryLst().add(itr);
+				originalFrx.addItinerary(itr);
+			}
+		}
+		
+		originalFrx.setForexDetailsLst(forex.getForexDetailsLst());
+		for(ForexDetails fds:forex.getForexDetailsLst())
+		{
+			originalFrx.addForexDetails(fds);
+		}	
+		forexRepository.saveAndFlush(originalFrx);	
+	}
+
+	@Override
+	public void completeForex(Forex originalFrx, Forex newForex) 
+	{
+		originalFrx.setEmp_type(newForex.getEmp_type());
+		originalFrx.setEmp_nm(newForex.getEmp_nm());
+		originalFrx.setMother_nm(newForex.getMother_nm());
+		originalFrx.setEmail(newForex.getEmail());
+		originalFrx.setMobile(newForex.getMobile());
+		originalFrx.setManager_nm(newForex.getManager_nm());
+		originalFrx.setForex_card(newForex.getForex_card());
+		originalFrx.setPurpose_of_trip(newForex.getPurpose_of_trip());
+		originalFrx.setBillable(newForex.getBillable());
+		originalFrx.setProj_code(newForex.getProj_code());
+		originalFrx.setProj_nm(newForex.getProj_nm());
+		originalFrx.setOpp_num(newForex.getOpp_num());
+		originalFrx.setClient_nm(newForex.getClient_nm());
+		originalFrx.setDob_dt(newForex.getDob_dt());
+		
+		originalFrx.setAdd_line_1(newForex.getAdd_line_1());
+		originalFrx.setAdd_line_2(newForex.getAdd_line_2());
+		originalFrx.setAdd_line_3(newForex.getAdd_line_3());
+		
+		originalFrx.setPassport_num(newForex.getPassport_num());
+		originalFrx.setPassport_iss_dt(newForex.getPassport_iss_dt());
+		originalFrx.setPassport_exp_dt(newForex.getPassport_exp_dt());
+		originalFrx.setCity(newForex.getCity());
+		originalFrx.setUid(newForex.getUid());
+		
+		originalFrx.setRequest_type(newForex.getRequest_type());
+		originalFrx.setComments(newForex.getComments());
 	}
 
 }

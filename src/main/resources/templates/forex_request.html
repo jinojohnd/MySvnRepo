@@ -19,7 +19,7 @@
 				<div class="panel-heading">
 					<span th:utext="${userName}"></span>
 				</div>					
-				<form data-toggle="validator" autocomplete="on" action="#" th:action="@{/home/forex-submission}"
+				<form data-toggle="validator" autocomplete="on" action="#" th:action="@{/home/forex-submission(id=${fId})}"
 					th:object="${forex}" method="post" role="form">
 					<div class="panel-body">
 						<div class="forex_initiation">
@@ -263,7 +263,215 @@
 									</div>
 								</div>
 							</div>
-							<div id ="itinerary" class="row marginBtm15px">
+							<div th:each="itn : *{itineraryLst}" class="form-group row marginBtm15px">
+								<div class="col-md-11 column">
+								<h4><b>Itinerary</b></h4>
+									<hr class="subHead"/>
+									<table class="table">
+										<thead>
+											<th scope ="col"></th>
+											<th scope ="col"></th>
+											<th scope ="col">Particulars of Expenditure</th>
+											<th scope ="col">No of Days</th>
+											<th scope ="col">Amt Per Day</th>
+											<th scope ="col">Total Amt</th>
+											<th scope ="col">Currency</th>
+										</thead>
+											<tbody>
+											<!-- Destination Country -->
+											<tr>
+												<td>
+													<label>Destination Country</label>
+													<!-- <label th:if="${#fields.hasErrors('dest_country')}" th:errors="*{dest_country}" class="validation-message"></label> -->
+												</td>
+												<td>
+													<div class="form-group">
+														<!-- <input type="text" class="form-control" th:field="*{itineraryLst[0].dest_country}" required/> --> 		
+														
+														<select class="form-control itrCntry" th:field="*{itineraryLst[__${itnStat.index}__].dest_country}" required>
+													        <option value=""></option>
+													        <option th:each="c : ${countryCur}"
+													                th:value="${c.country_name}"
+													                th:text="${c.country_name}">
+													        </option>
+													    </select>							
+													</div>											
+												</td>
+												<td><div class="form-group">Food Expenses</div></td>
+												<td class="width5pc">
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext itrNumDays" th:field="*{itineraryLst[__${itnStat.index}__].food_days}"/> 									
+													</div>
+												</td>
+												<td>
+													<div class="form-group">
+														<input type="text" th:field="*{itineraryLst[__${itnStat.index}__].food_per_day}" class="form-control itrFTPerDay" required pattern="^[0-9.]+" data-pattern-error="This field accepts only numbers."/>
+														<div class="help-block with-errors"></div> 									
+													</div>
+												</td>
+												<td class="width8pc">
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[__${itnStat.index}__].food_total_amt}"/> 									
+													</div>
+												</td>
+												<td class="width5pc">
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[__${itnStat.index}__].food_cur}"/> 									
+													</div>
+												</td>
+											</tr>
+											<!-- Local Conveyance -->
+											<tr>
+												<td>
+													<label>Destination City</label>
+													<!-- <label th:if="${#fields.hasErrors('dest_city')}" th:errors="*{dest_city}" class="validation-message"></label> -->
+												</td>
+												<td>
+													<div class="form-group">
+														<input type="text" class="form-control" th:field="*{itineraryLst[__${itnStat.index}__].dest_city}" required/> 									
+													</div>											
+												</td>
+												<td>
+												<div class="form-group">Local Conveyance</div></td>
+												<td class="width5pc">
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext itrNumDays" th:field="*{itineraryLst[__${itnStat.index}__].local_conveyance_days}"/> 									
+													</div>
+												</td>
+												<td>
+													<div class="form-group">
+														<input type="text" th:field="*{itineraryLst[__${itnStat.index}__].local_conveyance_per_day}" class="form-control itrLcPerDay" required pattern="^[0-9.]+" data-pattern-error="This field accepts only numbers."/>
+														<div class="help-block with-errors"></div> 									
+													</div>
+												</td>
+												<td class="width8pc">
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[__${itnStat.index}__].local_conveyance_total_amt}"/> 									
+													</div>
+												</td>
+												<td class="width5pc">
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[__${itnStat.index}__].local_conveyance_cur}"/> 									
+													</div>
+												</td>
+											</tr>
+											<!-- Departure Date -->
+											<tr>
+												<td>
+													<!-- <label th:if="${#fields.hasErrors('departure_dt')}" th:errors="*{departure_dt}" class="validation-message"></label> -->
+													<label id="itinerary_dt_1">Departure Date</label>
+												</td>
+												<td>
+													<div class="form-group">
+														<div class="input-group">											
+													        <div class="input-group-addon">
+													         <i class="glyphicon glyphicon-th">
+													         </i>
+													        </div>
+													        <input class="form-control width10pc mydatepickers itrDt" th:field="*{itineraryLst[__${itnStat.index}__].departure_dt}" placeholder="DD-MMM-YYYY" type="text" required/>
+													    </div>									
+													</div>											
+												</td>
+												<td><div class="form-group">Hotel Charges</div></td>
+												<td class="width5pc">
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext itrNumDays" th:field="*{itineraryLst[__${itnStat.index}__].hotel_days}"/> 									
+													</div>
+												</td>
+												<td>
+													<!-- <label th:if="${#fields.hasErrors('hotel_per_day')}" th:errors="*{hotel_per_day}" class="validation-message"></label> -->
+													<div class="form-group">
+														<input type="text" th:field="*{itineraryLst[__${itnStat.index}__].hotel_per_day}" class="form-control itrHcPerDay" required pattern="^[0-9.]+" data-pattern-error="This field accepts only numbers."/>
+														<div class="help-block with-errors"></div> 									
+													</div>
+												</td>
+												<td class="width8pc">
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[__${itnStat.index}__].hotel_total_amt}"/> 									
+													</div>
+												</td>
+												<td class="width5pc">
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[__${itnStat.index}__].hotel_cur}"/> 									
+													</div>
+												</td>
+											</tr>
+											<!-- Return Date -->
+											<tr>
+												<td>
+													<label id="itinerary_dt_2">Return Date</label>
+													<!-- <label th:if="${#fields.hasErrors('return_dt')}" th:errors="*{return_dt}" class="validation-message"></label> -->
+												</td>
+												<td>
+													<div class="form-group">
+														<div class="input-group">											
+													        <div class="input-group-addon">
+													         <i class="glyphicon glyphicon-th">
+													         </i>
+													        </div>
+													        <input class="form-control width10pc mydatepickers itrDt" th:field="*{itineraryLst[__${itnStat.index}__].return_dt}" placeholder="DD-MMM-YYYY" type="text" required/>
+													    </div>									
+													</div>											
+												</td>
+												<td><div class="form-group">Other Misc. expenses</div></td>
+												<td class="width5pc">
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext itrNumDays" th:field="*{itineraryLst[__${itnStat.index}__].othr_days}"/> 									
+													</div>
+												</td>
+												<td>
+													<div class="form-group">
+														<input type="text" th:field="*{itineraryLst[__${itnStat.index}__].othr_per_day}" class="form-control itrOthPerDay" pattern="^[0-9.]+" data-pattern-error="This field accepts only numbers." required/> 	
+														<div class="help-block with-errors"></div>								
+													</div>
+												</td>
+												<td class="width8pc">
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[__${itnStat.index}__].othr_total_amt}"/> 									
+													</div>
+												</td>
+												<td class="width5pc">
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[__${itnStat.index}__].othr_cur}"/> 									
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td><label>Amount in Cash</label></td>
+												<td>
+													<div class="form-group">
+														<input type="text" class="form-control amtInCsh" th:field="*{itineraryLst[__${itnStat.index}__].amt_in_cash}" required pattern="^[0-9.]+" data-pattern-error="This field accepts only numbers."/>
+														<div class="help-block with-errors"></div>  									
+													</div>
+												</td>
+												<td><label>Amount on Card</label></td>
+												<td colspan="2">
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[__${itnStat.index}__].amt_on_card}"/> 									
+													</div>
+												</td>
+												<td>
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[__${itnStat.index}__].itr_total_amt}"/> 									
+													</div>
+												</td>
+												<td>
+													<div class="form-group">
+														<input type="text" readonly class="form-control plaintext" th:field="*{itineraryLst[__${itnStat.index}__].itr_cur}"/> 									
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div th:if= "${itnStat.index == 0}" class="col-xs-1">
+						            <button type="button" class="btn btn-default addButton"><i class="glyphicon glyphicon-plus"></i></button>
+						        </div>
+						        <div th:if= "${itnStat.index != 0}" class="col-xs-1">
+						            <button type="button" class="btn btn-default removeButton"><i class="glyphicon glyphicon-minus"></i></button>
+						        </div>								
+							</div>
+							<div th:if="${newList == true}" id ="itinerary" class="row marginBtm15px">
 								<div class="col-md-11 column">
 								<h4><b>Itinerary</b></h4>
 									<hr class="subHead"/>
@@ -675,7 +883,18 @@
 									<div class="col-xs-1">
 							            <button type="button" class="btn btn-default removeButton"><i class="glyphicon glyphicon-minus"></i></button>
 							        </div>
-								</div>								
+								</div>
+								<div id ="itinerary" class="row marginBtm15px">
+									<div class="col-md-11 column">
+									<h4><b>Comments</b></h4>
+										<hr class="subHead"/>
+									</div>
+									<div class="col-md-4 column">
+										<div class="form-group">
+										  <textarea class="form-control" rows="5" th:field="*{comments}"></textarea>
+										</div>
+									</div>
+								</div>																
 							</div>
 							<div class="row">
 								<div class="form-group">
@@ -686,7 +905,8 @@
 							</div>
 						</div>
 					</div>
-				</form>					
+				</form>
+				<input type="hidden" name="itrSize" th:value="${itrSize}"/>						
 			</div>
 		</div>		
 	</div>

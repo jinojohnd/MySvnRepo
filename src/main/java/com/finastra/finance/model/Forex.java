@@ -1,11 +1,8 @@
 package com.finastra.finance.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,13 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -150,11 +147,13 @@ public class Forex
 	@OneToMany(mappedBy = "forex", cascade = CascadeType.ALL)
 	List<ForexDetails> forexDetailsLst = new ArrayList<ForexDetails>();
 	
+
 	public Forex(int forex_id, String emp_type, String emp_nm, String mother_nm, String email, String mobile,
 			String manager_nm, String forex_card, String purpose_of_trip, String billable, String proj_code,
 			String proj_nm, String opp_num, String client_nm, Date dob_dt, String add_line_1, String add_line_2,
 			String add_line_3, String passport_num, Date passport_iss_dt, Date passport_exp_dt, String city, String uid,
-			String request_type, String comments, List<Itinerary> itineraryLst, List<ForexDetails> forexDetailsLst){
+			String request_type, Date creation_dt, String status, String input_user_mail, String comments,
+			List<Itinerary> itineraryLst, List<ForexDetails> forexDetailsLst) {
 		super();
 		this.forex_id = forex_id;
 		this.emp_type = emp_type;
@@ -180,6 +179,9 @@ public class Forex
 		this.city = city;
 		this.uid = uid;
 		this.request_type = request_type;
+		this.creation_dt = creation_dt;
+		this.status = status;
+		this.input_user_mail = input_user_mail;
 		this.comments = comments;
 		this.itineraryLst = itineraryLst;
 		this.forexDetailsLst = forexDetailsLst;
@@ -187,9 +189,8 @@ public class Forex
 
 	public Forex() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
+
 	public List<Itinerary> getItineraryLst() {
 		return itineraryLst;
 	}
@@ -256,7 +257,7 @@ public class Forex
 	}
 
 	public String getForex_card() {
-		return forex_card;
+		return StringUtils.isEmpty(forex_card) ? "":forex_card;
 	}
 
 	public void setForex_card(String forex_card) {

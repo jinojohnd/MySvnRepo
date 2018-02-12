@@ -1,5 +1,6 @@
-var  itineraryIndex = 0;
 $(document).ready(function(){
+	
+	var  itineraryIndex = $('[name="itrSize"]').val() !=""? $('[name="itrSize"]').val():0;
 	
 	$('input[name="dob_dt"]').datepicker({
 		format: 'dd-M-yyyy',
@@ -42,7 +43,7 @@ $(document).ready(function(){
     });
     
     
-    $('#itinerary').on('click', '.addButton', function() {
+    $(document).on('click', '.addButton', function() {
     	itineraryIndex++;
     	var $template = $('#itineraryTemplate'),
         $clone    = $template

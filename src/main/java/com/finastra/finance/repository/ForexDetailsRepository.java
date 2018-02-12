@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.finastra.finance.model.Itinerary;
+import com.finastra.finance.model.ForexDetails;
 
 @Repository
-public interface ItineraryRepository extends JpaRepository<Itinerary,Integer>
+public interface ForexDetailsRepository extends JpaRepository<ForexDetails, Integer>
 {
-	@Query("From itinerary i where i.forex.forex_id=:forexId")
-	public List<Itinerary> getItineraryLst(@Param("forexId") int forexId);
+	@Query("From forexDetails f where f.forex.forex_id=:forexId")
+	public List<ForexDetails> getForexDetailsLst(@Param("forexId") int forexId);
 }

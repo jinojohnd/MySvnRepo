@@ -63,7 +63,10 @@
 								       			<td th:text="${forexItem.emp_type}"></td>
 								       			<td th:text="${forexItem.manager_nm}"></td>
 								       			<td th:text="#{${forexItem.status}}"></td>
-								       			<td><a data-toggle="modal" th:attr="data-id=${forexItem.forex_id}" data-target="#myModal" class="modal-toggle btn btn-primary btn-md" data-title="View"><span class="glyphicon glyphicon-search"></span></a></td>
+								       			<td>
+								       				<a data-toggle="modal" th:attr="data-id=${forexItem.forex_id}" data-target="#myModal" class="modal-toggle btn btn-primary btn-md" data-title="View"><span class="glyphicon glyphicon-search"></span></a>
+								       				<a th:if="${forexItem.status == 'STS_03' or forexItem.status == 'STS_04'}" th:href="@{/home/create-forex(id=${forexItem.forex_id})}" class="btn btn-primary btn-md" data-title="Edit"><span class="glyphicon glyphicon-pencil"></span></a>
+								       			</td>
 								       		</tr>
 									      </tbody>
 										<tfoot>
