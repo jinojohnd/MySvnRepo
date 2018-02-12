@@ -51,6 +51,13 @@ nav {
 	padding-right: 40px;
 }
 
+.nav{
+	padding-bottom: 12px !important;
+}
+
+.navbar-fixed-left{
+	margin-left: 12px;
+}
 .nav-image{
 	width: 6.5pc;
 	margin-top: -25px;
@@ -304,4 +311,12 @@ a.active {
 
 .mainTitle {
 	height: 1.1px !important;
+}
+
+.text-danger {
+	color: #E40046 !important;
+}
+
+.text-success{
+	color:#56C271 !important;
 }

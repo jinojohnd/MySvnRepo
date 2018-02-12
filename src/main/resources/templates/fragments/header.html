@@ -8,6 +8,7 @@
 		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 		<link rel="stylesheet" th:href="@{/css/bootstrap-toggle.min.css}">
 		<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker3.css}"/>
+		<link rel="stylesheet" th:href="@{/css/navbar-fixed-left.min.css}"/>
 		
 	  	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	  	<script th:src="@{/js/bootstrap.min.js}"></script>
@@ -39,7 +40,7 @@
 	</th:block>
 	
 	<th:block th:fragment="side-bar-forex">
-		<nav class="navbar side-bar-nav">	  
+		<nav class="navbar navbar-fixed-left">	  
 		      <ul class="nav navbar-nav">
 		      	<li><a th:href="@{/home/create-forex}">New Request</a></li>
 		      	<li sec:authorize="hasAnyRole('ROLE_EMP_MGR','ROLE_FIN_USR')"><a th:href="@{/home/pending-approval}">Pending for Approval</a></li>
@@ -48,7 +49,7 @@
 	</th:block>
 	
 	<th:block th:fragment="side-bar-admin">
-		<nav class="navbar side-bar-nav">	  
+		<nav class="navbar navbar-fixed-left">	  
 		      <ul class="nav navbar-nav">
 		      	<li><a th:href="@{/home/holiday-list}">Holiday List</a></li>
 		      	<li><a th:href="@{/home/emp-list}">Employee List</a></li>

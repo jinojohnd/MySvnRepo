@@ -62,7 +62,12 @@
 								       			<td th:text="${forexItem.emp_nm}"></td>
 								       			<td th:text="${forexItem.emp_type}"></td>
 								       			<td th:text="${forexItem.manager_nm}"></td>
-								       			<td th:text="#{${forexItem.status}}"></td>
+								       			<td>
+								       				<span th:if="${forexItem.status == 'STS_03' or forexItem.status == 'STS_04'}" th:text="#{${forexItem.status}}" class="text-danger"></span>
+								       				<span th:if="${forexItem.status == 'STS_01' or forexItem.status == 'STS_02'}" th:text="#{${forexItem.status}}"></span>
+								       				<span th:if="${forexItem.status == 'STS_05'}" th:text="#{${forexItem.status}}" class="text-success"></span>								       			
+								       			</td>
+								       			<!-- <td th:text="#{${forexItem.status}}" th:style="(${forexItem.status == 'STS_03' or forexItem.status == 'STS_04'} ? 'color: #E40046;' : 'color: #414141;')"></td> -->
 								       			<td>
 								       				<a data-toggle="modal" th:attr="data-id=${forexItem.forex_id}" data-target="#myModal" class="modal-toggle btn btn-primary btn-md" data-title="View"><span class="glyphicon glyphicon-search"></span></a>
 								       				<a th:if="${forexItem.status == 'STS_03' or forexItem.status == 'STS_04'}" th:href="@{/home/create-forex(id=${forexItem.forex_id})}" class="btn btn-primary btn-md" data-title="Edit"><span class="glyphicon glyphicon-pencil"></span></a>

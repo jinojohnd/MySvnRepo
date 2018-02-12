@@ -12,7 +12,7 @@ $(document).ready( function () {
 			"sAjaxSource": "forexEntriesForApproval",
 			"sAjaxDataProp": "",
 			"lengthMenu": [ 5, 15, 50, 100 ], 
-			"order": [[ 0, "asc" ]],
+			"order": [[ 0, "desc" ]],
 			"columns": [
 				{
 					mRender: function ( data, type, row ) {
@@ -27,8 +27,8 @@ $(document).ready( function () {
 	 var table = $('#forexApprovalTableHme').DataTable({
 			"sAjaxSource": "home/forexEntriesForApproval",
 			"sAjaxDataProp": "",
-			"lengthMenu": [ 5, 15, 50, 100 ], 
-			"order": [[ 0, "asc" ]],
+			"lengthMenu": [ 5, 10 ], 
+			"order": [[ 0, "desc" ]],
 			"columns": [
 				{ "mData": 1},
 				{ "mData": 2 },
