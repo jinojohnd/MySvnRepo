@@ -67,12 +67,12 @@ VALUES (5, 'Y', 'patrick.s@misys.com','s','patrick','$2a$10$MY/ShrPo4NlbYNESei1W
 
 
 /*Script for User Role*/
-INSERT INTO tbl_Role VALUES (1,'ADMIN');
-INSERT INTO tbl_Role VALUES (2,'ROLE_EMP_USER');
-INSERT INTO tbl_Role VALUES (3,'ROLE_EMP_MGR');
-INSERT INTO tbl_Role VALUES (4,'ROLE_FIN_USR');
-INSERT INTO tbl_Role VALUES (5,'ROLE_FIN_MGR');
-INSERT INTO tbl_Role VALUES (6,'ROLE_APPROVER');
+INSERT INTO tbl_Role VALUES (1,'ADMIN','Administrator');
+INSERT INTO tbl_Role VALUES (2,'ROLE_EMP_USER','Forex Creator');
+INSERT INTO tbl_Role VALUES (3,'ROLE_EMP_MGR','Forex  Approver');
+INSERT INTO tbl_Role VALUES (4,'ROLE_FIN_USR','Finance User');
+INSERT INTO tbl_Role VALUES (5,'ROLE_FIN_MGR','Finance Approver');
+INSERT INTO tbl_Role VALUES (6,'ROLE_APPROVER','Vinod Patrick');
 
 
 /*Script for User Role*/

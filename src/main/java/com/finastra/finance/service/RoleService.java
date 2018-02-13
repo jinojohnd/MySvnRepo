@@ -5,12 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.finastra.finance.model.Employee;
+import com.finastra.finance.model.Holiday;
+import com.finastra.finance.model.Role;
 
-public interface EmployeeService 
+public interface RoleService 
 {
-	public boolean canApprove(String email);
-	
-	public String getEmpRole(String email);
-	
-	public List<Employee> findAll();
+	public List<Role> findAll();
 }

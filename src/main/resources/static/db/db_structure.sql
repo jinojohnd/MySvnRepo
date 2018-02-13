@@ -9,10 +9,12 @@ DROP TABLE IF EXISTS `tbl_user`;
 DROP TABLE IF EXISTS `tbl_employee`;
 DROP TABLE IF EXISTS `tbl_country_cur`;
 DROP TABLE IF EXISTS `tbl_holidays`;
+DROP TABLE IF EXISTS `tbl_file_attachments`;
 
 CREATE TABLE `tbl_role` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(254) NOT NULL,
+  `role_description` varchar(254) NOT NULL,
   PRIMARY KEY (`role_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -173,3 +175,12 @@ CREATE TABLE `tbl_forex_details` (
   CONSTRAINT FK_Forex_Dtls FOREIGN KEY (forex_id)
   REFERENCES tbl_forex(`forex_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tbl_file_attachments` (
+	`file_id` int(15) NOT NULL AUTO_INCREMENT,
+	`forex_id` int(15) NOT NULL,
+	`file_name` varchar(50) NOT NULL,
+    `file_type` varchar(5) NOT NULL,
+    `file_content` longblob NOT NULL,
+    PRIMARY KEY (`file_id`)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

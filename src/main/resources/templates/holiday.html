@@ -26,21 +26,28 @@
 												<thead>
 													<th scope ="col">Date</th>
 													<th scope ="col">Description</th>
-													<th scope ="col"></th>
-													<th scope ="col"></th>
+													<th scope ="col">Action</th>
 												</thead>
 												<tbody>
 												<!-- Departure Date -->
 												<tr th:each="h:${holiday}">
 													<td th:text="${#dates.format(h.date,'dd-MMM-yyyy')}"/>
 													<td><input type="text" readonly class="plaintext" th:value="${h.description}"/></td>
-									       			<td><a data-toggle="modal" th:attr="data-id=${h.holiday_id}" data-target="#holidayModal" class="modal-holiday-toggle btn btn-primary btn-md" data-title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
-									       			<td><a data-toggle="modal" th:attr="data-id=${h.holiday_id}" data-target="#holidayModal" class="modal-holiday-toggle btn btn-primary btn-md" data-title="Delete"><span class="glyphicon glyphicon-remove-sign"></span></a></td>
+									       			<td><span><a data-toggle="modal" th:attr="data-id=${h.holiday_id}" data-target="#holidayModal" class="modal-holiday-toggle btn btn-primary btn-md" data-title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></span>
+									       			<span><a data-toggle="modal" th:attr="data-id=${h.holiday_id}" data-target="#holidayDeleteModal" class="modal-holiday-delete-toggle btn btn-primary btn-md" data-title="Delete"><span class="glyphicon glyphicon-remove-sign"></span></a></span></td>
 												</tr>					
 												</tbody>											
-											</table>																			
-								</div>
-					</div>
+											</table>
+											
+											<div class="row">
+												<div class="form-group">
+													<div class="col-md-2">
+										          		<button type="button" class="modal-add-holiday-toggle btn btn-primary btn-md" data-toggle="modal" data-target="#holidayAddModal">Add</button>
+										        	</div>
+												</div>
+											</div>																			
+								</div>			
+						</div>
 				</div>
 			</div>
 		</div>
@@ -48,16 +55,43 @@
 </div>
 
 <div class="modal fade" id="holidayModal">
-		<div class="modal-dialog">
-	      <div class="modal-content">
-	        <div class="modal-header">
-	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-	          <h3 class="modal-title">Holiday</h3>
-	        </div>
-	        <div class="modal-body" id="holidayModalPopup">			        
- 			 </div>
-			</div>	        					
-	      </div>
-	    </div>
+	<div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+         <h3 class="modal-title">Holiday</h3>
+       </div>
+       <div class="modal-body" id="holidayModalPopup">			        
+		 </div>
+	</div>	        					
+     </div>
+</div>
+	    
+<div class="modal fade" id="holidayDeleteModal">
+	<div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+         <h3 class="modal-title">Delete Holiday</h3>
+       </div>
+       <div class="modal-body" id="holidayDeleteModalPopup">      			        
+		 </div>
+	</div>	        					
+     </div>
+</div>
+
+<div class="modal fade" id="holidayAddModal">
+	<div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+         <h3 class="modal-title">Add Holiday</h3>
+       </div>
+       <div class="modal-body" id="holidayAddModalPopup">      			        
+		 </div>
+	</div>	        					
+     </div>
+</div>
+
 </body>
 

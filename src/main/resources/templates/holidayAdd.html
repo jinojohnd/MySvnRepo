@@ -1,5 +1,5 @@
 <div id="holidayeditdiv">
-<form data-toggle="validator" autocomplete="on" action="#" th:action="@{/admin/update-holiday}" th:object="${holiday}" method="post" role="form">
+<form data-toggle="validator" autocomplete="on" action="#" th:action="@{/admin/save-holiday}" th:object="${holiday}" method="post" role="form">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-5">
@@ -16,8 +16,8 @@
 				<div class="form-group">
 					<label>Description</label>
 					<input type="text" th:field="*{description}" class="form-control" required/>						
-				</div>				
-				<input type="hidden" th:field="*{holiday_id}"/>
+				</div>
+				
 			</div>
 		</div>
 		<div class="row">

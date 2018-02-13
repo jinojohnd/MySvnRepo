@@ -23,4 +23,8 @@ public interface ForexService
 	public void updateForex(Forex forex, int id, String string);
 	
 	public void completeForex(Forex oldForex, Forex newForex);
+	
+	public void createPDF(Forex forex, String fileName, String templateNm);
+	
+	public List<Forex> getAllApprovedForexReports(String email);
 }

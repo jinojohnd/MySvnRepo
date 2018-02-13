@@ -4,6 +4,7 @@
 
 <head>
   	<div th:replace="fragments/header :: header-css"/>
+  	<script th:src="@{/js/approve_forex.js}"></script>
 </head>
 <body>
 	<div th:replace="fragments/header :: header"/>	
@@ -42,15 +43,5 @@
 			</div>
 		</div>
 	</div>
-	<script>
-	$(document).ready(function(){
-
-		var d = $('[name="fid"]').val();
-		$.get( "./view-forex?id=" +d+"&operation=view", function( data ) {
-			 var r = data;
-			 $("#forex-data").html(data);
-		 });
-	});
-	</script>
 </body>					
 </html>

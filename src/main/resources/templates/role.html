@@ -1,0 +1,55 @@
+<head>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/datatable/dataTables.min.css}" />
+<div th:replace="fragments/header :: header-css" />
+<script th:src="@{/js/datatable/datatable.js}"></script>
+<script th:src="@{/js/datatable/dataTables.min.js}"></script>
+</head>
+
+<body>
+	<div th:replace="fragments/header :: header" />
+	<div class="container-fluid">
+		<div class="modal-body row-fluid">
+			<div class="col-md-2">
+				<div th:replace="fragments/header :: side-bar-admin" />
+			</div>
+			<div class="col-md-10">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<span th:utext="${userName}"></span>
+					</div>
+					<div class="panel-body">
+						<div class="container-fluid">
+							<div class="row-fluid">
+								<h2>
+									<b>ROLE</b>
+								</h2>
+								<hr />
+								<table id="tblRoleList" class="table">
+									<thead>
+										<th scope="col">Role ID</th>
+										<th scope="col">Role Name</th>
+										<th scope="col">Role Description</th>
+
+									</thead>
+									<tbody>
+										<tr th:each=h:${role}>
+											<td><input type="text" readonly class="plaintext"
+												th:value="${h.id}" /></td>
+											<td><input type="text" readonly class="plaintext"
+												th:value="${h.role}" /></td>
+											<td><input type="text" readonly class="plaintext"
+												th:value="${h.role_description}" /></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+

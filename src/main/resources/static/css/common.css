@@ -89,19 +89,17 @@ nav {
 	color: #cb42ab;
 	margin-top: 1px;
 	transition: 0.7s;
-	width: 185px;
 }
 
 .navbar-nav>li
 {
-	width: 185px;
+	width: 130px;
 }
 .navbar-nav>li>a:hover, .navbar-nav>li>a:focus
 {
 	color: #ffffff !important;
 	border-radius: 1px !important;
 	background-color: #8567ff !important;
-	width: 185px;
 }
 
 hr {
@@ -320,3 +318,8 @@ a.active {
 .text-success{
 	color:#56C271 !important;
 }
+
+ div.dataTables_paginate 
+ {
+ 	text-align: right;
+ }

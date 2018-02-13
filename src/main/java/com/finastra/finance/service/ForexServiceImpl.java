@@ -1,7 +1,11 @@
 package com.finastra.finance.service;
 
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import com.finastra.finance.repository.EmployeeRepository;
 import com.finastra.finance.repository.ForexDetailsRepository;
 import com.finastra.finance.repository.ForexRepository;
 import com.finastra.finance.repository.ItineraryRepository;
+import com.finastra.finance.util.PdfGenaratorUtil;
 
 @Service
 @Transactional
@@ -34,6 +39,12 @@ public class ForexServiceImpl implements ForexService
 	
 	@Autowired
 	private ForexDetailsRepository forexDtlsRepository;
+	
+	@Autowired
+	PdfGenaratorUtil pdfGenaratorUtil;
+	
+	@Autowired
+	EmailService emailService;
 	
 	@Override
 	public void save(Forex forex) 
@@ -125,6 +136,9 @@ public class ForexServiceImpl implements ForexService
 		}
 
 		forexRepository.saveAndFlush(f);
+		
+		String fileNm = f.getEmp_nm();
+		createPDF(f,fileNm , "create_forex_pdf");
 	}
 
 	@Override
@@ -158,7 +172,7 @@ public class ForexServiceImpl implements ForexService
 		{
 			originalFrx.addForexDetails(fds);
 		}	
-		forexRepository.saveAndFlush(originalFrx);	
+		forexRepository.saveAndFlush(originalFrx);
 	}
 
 	@Override
@@ -191,6 +205,41 @@ public class ForexServiceImpl implements ForexService
 		
 		originalFrx.setRequest_type(newForex.getRequest_type());
 		originalFrx.setComments(newForex.getComments());
+	}
+
+	@Override
+	public void createPDF(Forex forex, String fileName, String templateNm) 
+	{
+		if("STS_05".equals(forex.getStatus()))
+		{
+			Map dic = new HashMap();
+			dic.put("forex", forex);
+			dic.put("title", "Forex Request PDF");
+			try 
+			{
+				pdfGenaratorUtil.createAndSavePdf(templateNm, dic, fileName, forex.getForex_id());
+				emailService.sendSimpleMessage("sapna.m@misys.com", "FINTravex Test", "Test mail");
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}		
+	}
+
+	@Override
+	public List<Forex> getAllApprovedForexReports(String email) 
+	{
+		Employee emp = employeeRepository.getEmployeeByEmail(email);
+		String status = "STS_05";
+		if("FINANCE".equals(emp.getEmp_role()))
+		{
+			return forexRepository.findAllApprovedForexForFinance(status);
+		}
+		else
+		{
+			return forexRepository.findAllApprovedForexForEmp(email, status);
+		}
 	}
 
 }

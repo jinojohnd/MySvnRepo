@@ -24,18 +24,34 @@
 					<div class="panel-body">
 						<div class="container-fluid">
 							<div class="row">
-								<h2>List of Forex Pending Approval</h2>
+								<h2>List of Forex Reports</h2>
 								<hr />
-								<table id="forexPendingApproval" class="display table">				      
-							       <!-- Header Table -->
-							       <thead>
-							            <tr>
-							            	<th class="tHead">Forex Id</th>
-							                <th class="tHead">Name</th>
+								<table th:unless="${module}" id="forexReport" class="display table">
+									<thead>
+										<tr>
+											<th class="tHead">Forex Id</th>
+											<th class="tHead">Name</th>
 											<th class="tHead">Type</th>
 							               	<th class="tHead">Creation Date</th>
-							            </tr>
-							        </thead>
+							               	<th class="tHead">File Name</th>
+							               	<th class="tHead">Action</th>
+							           </tr>
+								    </thead>
+								    <tfoot>
+								    	<tr>
+											<th/><th/><th/><th/><th/><th/>
+							           </tr>
+								    </tfoot>
+								</table>
+								<table th:if="${module == 'upload'}" id="forexCentrumUpload" class="display table">
+									<thead>
+										<tr>
+											<th class="tHead">Forex Id</th>
+											<th class="tHead">Name</th>
+											<th class="tHead">Type</th>
+							               	<th class="tHead">Creation Date</th>
+							           </tr>
+								    </thead>
 								    <tfoot>
 								    	<tr>
 											<th/><th/><th/><th/>

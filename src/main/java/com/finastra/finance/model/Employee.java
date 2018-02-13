@@ -69,40 +69,58 @@ public class Employee
 	@Column(name="emp_role")
 	private String emp_role;
 	
+	@Column(name="sun_employee_id")
 	private String sun_employee_id;
 	
+	@Column(name="old_id")
 	private String old_id;
 	
+	@Column(name="id")
 	private String id;
 	
+	@Column(name="er")
 	private String er;
 	
+	@Column(name="old_er")
 	private String old_er;
 	
+	@Column(name="cost_center")
 	private String cost_center;
 	
+	@Column(name="product")
 	private String product;
 	
+	@Column(name="region")
 	private String region;
 	
+	@Column(name="transaction_prefix")
 	private String transaction_prefix;
 	
+	@Column(name="third_party")
 	private String third_party;
 	
+	@Column(name="export_to_open_air")
 	private String export_to_open_air;
 	
+	@Column(name="job_title")
 	private String job_title;
 	
+	@Column(name="oa_department")
 	private String oa_department;
 	
+	@Column(name="expense_currency")
 	private String expense_currency;
 	
+	@Column(name="login_access")
 	private String login_access;
 	
+	@Column(name="job_level")
 	private String job_level;
 	
+	@Column(name="cc")
 	private String cc;
 	
+	@Column(name="termination_date")
 	private Date termination_date;
 	
 	public int getEmp_id() {

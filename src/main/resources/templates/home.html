@@ -28,6 +28,7 @@
 										<table id="forexApprovalTableHme" class="display table">
 											<thead>
 												<tr>
+													<th class="tHead">Forex Id</th>
 													<th class="tHead">Name</th>
 													<th class="tHead">Type</th>
 									               	<th class="tHead">Creation Date</th>
@@ -36,7 +37,7 @@
 										    </thead>
 										    <tfoot>
 										    	<tr>
-													<th/><th/><th/><th/>
+													<th/><th/><th/><th/><th/>
 									           </tr>
 										    </tfoot>
 										</table>
@@ -50,8 +51,9 @@
 									<table id="myForexTableHme" class="display table">
 										<thead>
 								           <tr>
+								           		<th class="tHead">Forex Id</th>
 								               <th class="tHead">Name</th>
-											<th class="tHead">Type</th>
+											   <th class="tHead">Type</th>
 								               <th class="tHead">Manager Name</th>
 								               <th class="tHead">Status</th>
 								               <th class="tHead">Action</th>
@@ -59,6 +61,7 @@
 									    </thead>
 									    <tbody>
 								       		<tr th:each="forexItem : ${forexLst}">
+								       			<td th:text="${forexItem.forex_id}"></td>
 								       			<td th:text="${forexItem.emp_nm}"></td>
 								       			<td th:text="${forexItem.emp_type}"></td>
 								       			<td th:text="${forexItem.manager_nm}"></td>
@@ -76,7 +79,7 @@
 									      </tbody>
 										<tfoot>
 									        <tr>
-									            <th/><th/><th/><th/><th/>
+									            <th/><th/><th/><th/><th/><th/>
 									        </tr>
 										</tfoot>
 								   	</table>

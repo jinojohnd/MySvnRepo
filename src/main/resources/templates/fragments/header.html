@@ -7,8 +7,8 @@
         <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
 		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 		<link rel="stylesheet" th:href="@{/css/bootstrap-toggle.min.css}">
-		<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker3.css}"/>
-		<link rel="stylesheet" th:href="@{/css/navbar-fixed-left.min.css}"/>
+		<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker3.css}"/><!-- 
+		<link rel="stylesheet" th:href="@{/css/navbar-fixed-left.min.css}"/> -->
 		
 	  	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	  	<script th:src="@{/js/bootstrap.min.js}"></script>
@@ -32,29 +32,37 @@
 	      </a>
 	      <a class="glyphicon glyphicon-home homelink padding" th:href="@{/home}"></a>
 		  <a class="link-3 padding divider-vertical" th:href="@{/home/create-forex}">Forex Request</a>
-		  <a class="link-3 padding divider-vertical" th:href="@{/home}">Pending Items</a>
-		  <a class="link-3 padding divider-vertical" th:href="@{/home/admin}">Administration</a>
+		  <a class="link-3 padding divider-vertical" sec:authorize="hasAnyRole('ROLE_FIN_USR','ROLE_FIN_MGR')" th:href="@{/admin}">Administration</a>
+		  <a class="link-3 padding divider-vertical" sec:authorize="hasAnyRole('ROLE_FIN_USR','ROLE_FIN_MGR')" th:href="@{/uploads}">Uploads</a>
 		  <a class="glyphicon glyphicon-off logoutlink navbar-right" title="Logout" th:href="@{/logout}"></a>
 		</nav>
 		
 	</th:block>
 	
 	<th:block th:fragment="side-bar-forex">
-		<nav class="navbar navbar-fixed-left">	  
+		<nav class="navbar side-bar-nav">	  
 		      <ul class="nav navbar-nav">
 		      	<li><a th:href="@{/home/create-forex}">New Request</a></li>
-		      	<li sec:authorize="hasAnyRole('ROLE_EMP_MGR','ROLE_FIN_USR')"><a th:href="@{/home/pending-approval}">Pending for Approval</a></li>
+		      	<li sec:authorize="hasAnyRole('ROLE_EMP_MGR','ROLE_FIN_USR', 'ROLE_FIN_MGR')"><a th:href="@{/home/pending-approval}">Pending for Approval</a></li>
+		      	<li><a th:href="@{/home/forex-reports}">Forex Reports</a></li>
 		      </ul>
 		</nav>
 	</th:block>
 	
 	<th:block th:fragment="side-bar-admin">
-		<nav class="navbar navbar-fixed-left">	  
+		<nav class="navbar side-bar-nav">	  
 		      <ul class="nav navbar-nav">
-		      	<li><a th:href="@{/home/holiday-list}">Holiday List</a></li>
-		      	<li><a th:href="@{/home/emp-list}">Employee List</a></li>
-		      	<li><a th:href="@{/home/user-list}">User List</a></li>
-		      	<li><a th:href="@{/home/role-list}">Role List</a></li>
+		      	<li><a th:href="@{/admin/holiday-list}">Holiday List</a></li>
+		      	<li><a th:href="@{/admin/emp-list}">Employee List</a></li>
+		      	<li><a th:href="@{/admin/role-list}">Role List</a></li>
+		      </ul>
+		</nav>
+	</th:block>
+	
+	<th:block th:fragment="side-bar-upload">
+		<nav class="navbar side-bar-nav">	  
+		      <ul class="nav navbar-nav">
+		      	<li><a th:href="@{/upload/centrumBill}">Centrum Bill Upload</a></li>
 		      </ul>
 		</nav>
 	</th:block>

@@ -80,10 +80,18 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="home/pending-approval", method = RequestMethod.GET)
-	public ModelAndView createForexReqFromExisiting(){
+	public ModelAndView viewPendingApproval(){
 		ModelAndView modelAndView = new ModelAndView();
 		Utils.getUserName(modelAndView, userService);
 		modelAndView.setViewName("list_pending_forex");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="home/forex-reports", method = RequestMethod.GET)
+	public ModelAndView viewForexReports(){
+		ModelAndView modelAndView = new ModelAndView();
+		Utils.getUserName(modelAndView, userService);
+		modelAndView.setViewName("list_forex_reports");
 		return modelAndView;
 	}
 	
@@ -103,7 +111,14 @@ public class LoginController {
 		Utils.getUserName(modelAndView, userService);
 		forexService.approveForex(id, action);
 		modelAndView.setViewName("success");
-		modelAndView.addObject("successMessage","Sucessfully approved the Forex Request Form.");
+		if("approve".equals(action))
+		{
+			modelAndView.addObject("successMessage","Sucessfully Approved the Forex Request Form.");
+		}
+		else
+		{
+			modelAndView.addObject("successMessage","Sucessfully Rejected the Forex Request Form.");
+		}
 		return modelAndView;
 	}
 	

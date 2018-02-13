@@ -8,7 +8,7 @@ public interface HolidayService
 {
 	public List<Holiday> findAll();
 	public Holiday getHolidayById(Integer id);
-    public Holiday create(Holiday post);
-    public void update(Holiday post);
+    public Holiday create(Holiday holiday);
+    public void update(Holiday holiday);
     public void deleteById(int id);
 }

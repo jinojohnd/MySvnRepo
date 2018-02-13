@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>  	
+  	<div th:replace="fragments/header :: header-css"/>
+</head>
+
+<body>
+<div th:replace="fragments/header :: header"/>	
+	<div class="container-fluid">
+		<div class="modal-body row-fluid">
+			<div class="col-md-2">
+				<div th:replace="fragments/header :: side-bar-upload"/>
+			</div>
+			<div class="col-md-10">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<span th:utext="${userName}"></span>
+					</div>
+					<div class="panel-body">
+						<div class="container-fluid">
+							This is the Upload Module for FINTravex ( Finastra's Travel and Expense Module).
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>					
