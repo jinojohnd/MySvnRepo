@@ -3,9 +3,7 @@ package com.finastra.finance.service;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 
-import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;

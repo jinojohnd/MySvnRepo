@@ -9,14 +9,14 @@ body>.container-fluid{
 }
 
 nav {
-  margin-top: 1px;
-  padding: 15px 15px 0px 15px;
   text-align: left;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 #nav-3 {
   background: #ffffff;
+  margin-top: 1px;
+  padding: 15px 15px 0px 15px;
 }
 
 .padding
@@ -63,6 +63,11 @@ nav {
 	margin-top: -25px;
 }
 
+.nav-brand-image
+{
+	width: 6pc;
+}
+
 .divider-vertical {
 	height: 50px !important;
 	margin: 0 9px;
@@ -77,29 +82,6 @@ nav {
 
 .nav-tabs {
     border-bottom: none !important;
-}
-
-.side-bar-nav{
-	padding-bottom: 15px;
-}
-
-
-.navbar-nav>li>a
-{
-	color: #cb42ab;
-	margin-top: 1px;
-	transition: 0.7s;
-}
-
-.navbar-nav>li
-{
-	width: 130px;
-}
-.navbar-nav>li>a:hover, .navbar-nav>li>a:focus
-{
-	color: #ffffff !important;
-	border-radius: 1px !important;
-	background-color: #8567ff !important;
 }
 
 hr {
@@ -323,3 +305,12 @@ a.active {
  {
  	text-align: right;
  }
+ 
+.modal-backdrop.in {
+	opacity: 0 !important;
+}
+
+.input-group .form-control
+{
+	z-index: inherit !important;
+}

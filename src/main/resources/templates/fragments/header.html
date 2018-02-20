@@ -4,24 +4,29 @@
 		<title>FinTravex</title>
         <!-- this is header-css -->
         <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}" />
         <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
 		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 		<link rel="stylesheet" th:href="@{/css/bootstrap-toggle.min.css}">
 		<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker3.css}"/><!-- 
 		<link rel="stylesheet" th:href="@{/css/navbar-fixed-left.min.css}"/> -->
+		<link rel="stylesheet" th:href="@{/css/dataTables.bootstrap.css}" />
 		
 	  	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	  	
+	  	<script th:src="@{/js/jquery.dataTables.min.js}"></script>
+	  	<script th:src="@{/js/dataTables.bootstrap.js}"></script>
+	  	
 	  	<script th:src="@{/js/bootstrap.min.js}"></script>
 		<script th:src="@{/js/modernizr.js}"></script>
 	  	
-	  	<!-- Links for Date picker -->
-	  	<script th:src="@{/js/datepicker/jquery-1.11.3.min.js}"></script>
 	  	<script th:src="@{/js/datepicker/bootstrap-datepicker.min.js}"></script>
 	  	
 		<script th:src="@{/js/toggle/bootstrap-toggle.min.js}"></script>  
 		<script th:src="@{/js/validator.min.js}"></script>
 		<script th:src="@{/js/loader.js}"></script>
 		<script th:src="@{/js/menuhighlight.js}"></script>
+		<script th:src="@{/js/navbar.js}"></script>
 </head>
 <body>
 	<th:block th:fragment="header">
@@ -35,11 +40,24 @@
 		  <a class="link-3 padding divider-vertical" sec:authorize="hasAnyRole('ROLE_FIN_USR','ROLE_FIN_MGR')" th:href="@{/admin}">Administration</a>
 		  <a class="link-3 padding divider-vertical" sec:authorize="hasAnyRole('ROLE_FIN_USR','ROLE_FIN_MGR')" th:href="@{/uploads}">Uploads</a>
 		  <a class="glyphicon glyphicon-off logoutlink navbar-right" title="Logout" th:href="@{/logout}"></a>
-		</nav>
-		
+		</nav>		
 	</th:block>
 	
 	<th:block th:fragment="side-bar-forex">
+		<div class="overlay"></div>
+		<nav class="navbar navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+           <ul class="nav sidebar-nav">
+	            <li class="sidebar-brand">
+	                  <!--  <img th:src="@{/images/FINTravex.png}" class="nav-brand-image"/> -->
+				</li>
+				<li><a th:href="@{/home/create-forex}">New Request</a></li>
+				<li sec:authorize="hasAnyRole('ROLE_EMP_MGR','ROLE_FIN_USR', 'ROLE_FIN_MGR')"><a th:href="@{/home/pending-approval}">Pending for Approval</a></li>
+				<li><a th:href="@{/home/forex-reports}">Forex Reports</a></li>
+			</ul>
+       </nav>
+	</th:block>
+	
+	<!-- <th:block th:fragment="side-bar-forex">
 		<nav class="navbar side-bar-nav">	  
 		      <ul class="nav navbar-nav">
 		      	<li><a th:href="@{/home/create-forex}">New Request</a></li>
@@ -47,11 +65,15 @@
 		      	<li><a th:href="@{/home/forex-reports}">Forex Reports</a></li>
 		      </ul>
 		</nav>
-	</th:block>
+	</th:block> -->
 	
 	<th:block th:fragment="side-bar-admin">
-		<nav class="navbar side-bar-nav">	  
-		      <ul class="nav navbar-nav">
+		<div class="overlay"></div>
+		<nav class="navbar navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+           <ul class="nav sidebar-nav">
+	            <li class="sidebar-brand">
+	                  <!--  <img th:src="@{/images/FINTravex.png}" class="nav-brand-image"/> -->
+				</li>
 		      	<li><a th:href="@{/admin/holiday-list}">Holiday List</a></li>
 		      	<li><a th:href="@{/admin/emp-list}">Employee List</a></li>
 		      	<li><a th:href="@{/admin/role-list}">Role List</a></li>
@@ -60,8 +82,12 @@
 	</th:block>
 	
 	<th:block th:fragment="side-bar-upload">
-		<nav class="navbar side-bar-nav">	  
-		      <ul class="nav navbar-nav">
+		<div class="overlay"></div>
+		<nav class="navbar navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+           <ul class="nav sidebar-nav">
+	            <li class="sidebar-brand">
+	                  <!--  <img th:src="@{/images/FINTravex.png}" class="nav-brand-image"/> -->
+				</li>
 		      	<li><a th:href="@{/upload/centrumBill}">Centrum Bill Upload</a></li>
 		      </ul>
 		</nav>

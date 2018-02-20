@@ -1,31 +1,38 @@
 <head>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/datatable/dataTables.min.css}" />	
   	<div th:replace="fragments/header :: header-css"/>
-	<script th:src="@{/js/datatable/datatable.js}"></script>
-	<script th:src="@{/js/datatable/dataTables.min.js}"></script>
+  	<script th:src="@{/js/datatable.js}"></script>
 </head>
 
 <body>
 <div th:replace="fragments/header :: header"/>	
 	<div class="container-fluid">
 		<div class="modal-body row-fluid">
-			<div class="col-md-2">
-				<div th:replace="fragments/header :: side-bar-upload"/>
-			</div>
-			<div class="col-md-10">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<span th:utext="${userName}"></span>
-					</div>
-					<div class="panel-body">
-						<div class="container-fluid">							
-								<div th:if="${message}">
-								    <p th:text="${message}"/>
-								</div>	
+			<div id="wrapper">
+			<div th:replace="fragments/header :: side-bar-upload"/>
+				<div id="page-content-wrapper">
+					<button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+		                <span class="hamb-top"></span>
+		    			<span class="hamb-middle"></span>
+						<span class="hamb-bottom"></span>
+		            </button>
+		            <div class="container">
+			            <div class="row moveUP">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<span th:utext="${userName}"></span>
+								</div>
+								<div class="panel-body">
+									<div class="container-fluid">							
+											<div th:if="${message}">
+											    <p th:text="${message}"/>
+											</div>	
+									</div>
+							</div>
+							</div>
 						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </body>

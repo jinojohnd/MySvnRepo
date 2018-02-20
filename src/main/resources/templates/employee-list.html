@@ -1,62 +1,68 @@
 <head>
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/datatable/dataTables.min.css}" />
-<div th:replace="fragments/header :: header-css" />
-<script th:src="@{/js/datatable/datatable.js}"></script>
-<script th:src="@{/js/datatable/dataTables.min.js}"></script>
+	<div th:replace="fragments/header :: header-css" />
+	<script th:src="@{/js/datatable.js}"></script>
 </head>
 
 <body>
 	<div th:replace="fragments/header :: header" />
 	<div class="container-fluid">
 		<div class="modal-body row-fluid">
-			<div class="col-md-2">
-				<div th:replace="fragments/header :: side-bar-admin" />
-			</div>
-			<div class="col-md-10">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<span th:utext="${userName}"></span>
-					</div>
-					<div class="panel-body">
-						<div class="container-fluid">
-							<div class="row-fluid">
-								<h4>
-									<b>EMPLOYEE LIST</b>
-								</h4>
-								<hr />
-								<table id="tblEmployeeList" class="table">
-									<thead>
-										<th scope="col">Employee ID</th>
-										<th scope="col">Name</th>
-										<th scope="col">Email Address</th>
-										<th scope="col">Project Code</th>
-										<th scope="col">Region</th>
-									</thead>
-									<tbody>
-									
-										<tr th:each=h:${employee}>
-											<td><input type="text" readonly class="plaintext"
-												th:value="${h.emp_no}" /></td>
-											<td><input type="text" readonly class="plaintext"
-												th:value="${h.emp_nm}" /></td>
-											<td width='25px'><input type="text" readonly class="plaintext"
-												th:value="${h.email}"/></td>
-											<td><input type="text" readonly class="plaintext"
-												th:value="${h.project_code}" /></td>
-											<td><input type="text" readonly class="plaintext"
-												th:value="${h.region}" /></td>
-
-
-										</tr>
-									</tbody>
-
-
-								</table>
+			<div id="wrapper">
+			<div th:replace="fragments/header :: side-bar-admin"/>
+				<div id="page-content-wrapper">
+					<button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+		                <span class="hamb-top"></span>
+		    			<span class="hamb-middle"></span>
+						<span class="hamb-bottom"></span>
+		            </button>
+		            <div class="container">
+			            <div class="row moveUP">			
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<span th:utext="${userName}"></span>
+								</div>
+								<div class="panel-body">
+									<div class="container-fluid">
+										<div class="row-fluid">
+											<h4>
+												<b>EMPLOYEE LIST</b>
+											</h4>
+											<hr />
+											<table id="tblEmployeeList" class="table">
+												<thead>
+													<th scope="col">Employee ID</th>
+													<th scope="col">Name</th>
+													<th scope="col">Email Address</th>
+													<th scope="col">Project Code</th>
+													<th scope="col">Region</th>
+												</thead>
+												<tbody>
+												
+													<tr th:each=h:${employee}>
+														<td><input type="text" readonly class="plaintext"
+															th:value="${h.emp_no}" /></td>
+														<td><input type="text" readonly class="plaintext"
+															th:value="${h.emp_nm}" /></td>
+														<td width='25px'><input type="text" readonly class="plaintext"
+															th:value="${h.email}"/></td>
+														<td><input type="text" readonly class="plaintext"
+															th:value="${h.project_code}" /></td>
+														<td><input type="text" readonly class="plaintext"
+															th:value="${h.region}" /></td>
+			
+			
+													</tr>
+												</tbody>
+			
+			
+											</table>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>		
 			</div>
 		</div>
 	</div>

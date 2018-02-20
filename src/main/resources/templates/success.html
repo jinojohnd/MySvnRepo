@@ -10,17 +10,26 @@
 	<div th:replace="fragments/header :: header"/>	
 	<div class="container-fluid">
 		<div class="modal-body row-fluid">
-			<div class="col-md-2">
-				<div th:replace="fragments/header :: side-bar-forex"/>
-			</div>
-			<div class="col-md-10">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<span th:utext="${userName}"></span>
+			<div id="wrapper">
+			<div th:replace="fragments/header :: side-bar-forex"/>
+				<div id="page-content-wrapper">
+					<button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+		                <span class="hamb-top"></span>
+		    			<span class="hamb-middle"></span>
+						<span class="hamb-bottom"></span>
+		            </button>
+		            <div class="container">
+			            <div class="row moveUP">			
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<span th:utext="${userName}"></span>
+								</div>
+								<div class="panel-body">
+									<span th:utext="${successMessage}"></span>
+								</div>	
+							</div>
+						</div>
 					</div>
-					<div class="panel-body">
-						<span th:utext="${successMessage}"></span>
-					</div>	
 				</div>
 			</div>
 		</div>				

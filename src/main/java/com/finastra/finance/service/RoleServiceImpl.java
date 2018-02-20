@@ -2,13 +2,10 @@ package com.finastra.finance.service;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.finastra.finance.model.Employee;
 import com.finastra.finance.model.Role;
-import com.finastra.finance.repository.EmployeeRepository;
 import com.finastra.finance.repository.RoleRepository;
 
 @Service
