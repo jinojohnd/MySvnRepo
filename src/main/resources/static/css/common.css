@@ -240,6 +240,7 @@ table.dataTable thead .sorting_desc_disabled:after
 {
 	background-color:#694ed6 !important;
 	border-color:#694ed6 !important;
+	color:#ffffff !important;
 }
 
 .tHead{
@@ -313,4 +314,30 @@ a.active {
 .input-group .form-control
 {
 	z-index: inherit !important;
+}
+
+.pagination>li>a, .pagination>li>span
+{
+	color: #cb42ab !important;
+}
+
+.box {
+	-webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+	box-shadow: 0 10px 6px -6px #777;
+	background-color: #ffffff;
+}
+
+.nav-tabs>li.active{
+	background-color: #ffffff;
+}
+
+.nav-tabs>li.active>a,.nav-tabs>li>a:hover{
+	border-bottom-color:#cb42ab !important;
+	border-bottom-width:3px !important;
+	color:#694ed6 !important; 
+}
+	
+.nav-tabs>li>a{
+	color:#694ed6;
 }

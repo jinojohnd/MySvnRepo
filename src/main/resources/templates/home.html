@@ -17,10 +17,10 @@
 					<div class="panel-heading">
 						<span th:utext="${userName}"></span>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body" style="background-color: #f3f3f3;">
 						<div class="container-fluid">
 							<div sec:authorize="hasAnyRole('ROLE_EMP_MGR','ROLE_FIN_USR')">
-								<div class="row">
+								<div class="row box">
 									<div class="col-md-12">
 										<h3>Pending For Approval</h3>
 										<table id="forexApprovalTableHme" class="display table">
@@ -43,7 +43,7 @@
 								</div>
 								<hr/>
 							</div>
-							<div class="row">
+							<div class="row box">
 								<div class="col-md-12">
 									<h3>My Forex List</h3>
 									<table id="myForexTableHme" class="display table">

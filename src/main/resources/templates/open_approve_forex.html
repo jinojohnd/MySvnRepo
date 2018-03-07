@@ -10,34 +10,42 @@
 	<div th:replace="fragments/header :: header"/>	
 	<div class="container-fluid">
 		<div class="modal-body row-fluid">
-			<div class="col-sm-2">
-				<div th:replace="fragments/header :: side-bar-forex"/>
-			</div>
-			<div class="col-sm-10">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<span th:utext="${userName}"></span>
-					</div>
-					<div class="panel-body">
-						<div class="forex_initiation">
-							<h3><b>Forex Requisition Form</b></h3>
-							<hr class="mainTitle"/>
-						</div>
-						<form action="#" th:action="@{/home/approve/submit-approval(id=${fId})}" th:object="${forex}"  method="post" role="form">
-							<div id="forex-data"></div>	
-							
-							<div class="row">
-								<div class="form-group col-md-8">
-									<div class="col-md-3">
-										<button type="submit" name="action" value="approve" class="btn btn-primary btn-block">Approve</button>
-									</div>
-									<div class="col-md-3">
-										<button type="submit" name="action" value="reject" class="btn btn-primary btn-block btn-danger">Reject</button>
-									</div>
-								</div>
+		<div id="wrapper">
+		<div th:replace="fragments/header :: side-bar-forex"/>
+			<div id="page-content-wrapper">
+				<button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+	                <span class="hamb-top"></span>
+	    			<span class="hamb-middle"></span>
+					<span class="hamb-bottom"></span>
+	            </button>
+	            <div class="container">
+		            <div class="row moveUP">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<span th:utext="${userName}"></span>
 							</div>
-							<input type="hidden" name="fid" th:value="${fId}"/>					
-						</form>
+							<div class="panel-body">
+								<div class="forex_initiation">
+									<h3><b>Forex Requisition Form</b></h3>
+									<hr class="mainTitle"/>
+								</div>
+								<form action="#" th:action="@{/home/approve/submit-approval(id=${fId})}" th:object="${forex}"  method="post" role="form">
+									<div id="forex-data"></div>	
+									
+									<div class="row">
+										<div class="form-group col-md-8">
+											<div class="col-md-3">
+												<button type="submit" name="action" value="approve" class="btn btn-primary btn-block">Approve</button>
+											</div>
+											<div class="col-md-3">
+												<button type="submit" name="action" value="reject" class="btn btn-primary btn-block btn-danger">Reject</button>
+											</div>
+										</div>
+									</div>
+									<input type="hidden" name="fid" th:value="${fId}"/>					
+								</form>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
