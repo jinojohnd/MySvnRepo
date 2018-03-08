@@ -8,6 +8,8 @@ import java.util.Date;
 
 import javax.validation.Valid;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,6 +43,8 @@ public class LoginController {
 	
 	@Autowired
 	private EmployeeService employeeService;
+	
+	private Log LOG = LogFactory.getLog(LoginController.class);
 
 	@RequestMapping(value= {"/","/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
@@ -51,6 +55,7 @@ public class LoginController {
 	
 	@RequestMapping(value="home/create-forex", method = RequestMethod.GET)
 	public ModelAndView createForexReq(){
+		LOG.info("Inside the Create Forex");
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Forex frx = new Forex();
