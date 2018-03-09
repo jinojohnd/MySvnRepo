@@ -86,7 +86,20 @@ $(document).ready(function(){
     $('html, body').animate({
         scrollTop: $($clone).offset().top
     }, 1000);
-    })
+    });
+    
+    $("#request_type").change(function(){
+        if($(this).prop("checked") == false)
+        {
+        	$('.itinerary_dt_1').text("Start Date of Extension");
+        	$('.itinerary_dt_2').text("End Date of Extension");
+        }
+        else
+        {
+        	$('.itinerary_dt_1').text("Departure Date");
+        	$('.itinerary_dt_2').text("Return Date");
+        }
+    });
    	
 	// Remove button click handler
 	$(document).on('click', '.removeButton', function() {

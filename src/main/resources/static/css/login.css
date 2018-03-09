@@ -47,3 +47,9 @@ hr {
     margin-top: -62.1px;
     width:8pc;
 }
+
+body
+{
+	background-size: cover;
+	background-image: url('../images/fin_background.png');
+}

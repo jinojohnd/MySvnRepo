@@ -125,7 +125,6 @@ public class Forex
 	private String uid;
 	
 	@Column(name = "request_type")
-	@NotEmpty(message = "*This field is required")
 	private String request_type;
 	
 	@Column(name = "creation_dt")

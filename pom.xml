@@ -22,6 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<build.number>SNAPSHOT</build.number>
 	</properties>
 
 	<dependencies>
@@ -129,6 +130,20 @@
 			        <executable>true</executable>
 			    </configuration>
             </plugin>
+            <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-jar-plugin</artifactId>
+	            <configuration>
+	                <manifest>
+	                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+	                </manifest>
+	                <archive>
+	                    <manifestEntries>
+	                        <Implementation-Version>${build.number}</Implementation-Version>
+	                    </manifestEntries>
+	                </archive>
+	            </configuration>
+        	</plugin>
         </plugins>
     </build>
 

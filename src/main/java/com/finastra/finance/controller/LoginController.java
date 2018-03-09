@@ -8,6 +8,7 @@ import java.util.Date;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,42 +131,48 @@ public class LoginController {
 	@RequestMapping(value = "/home/forex-submission", method = RequestMethod.POST)
 	public ModelAndView submitForexRequest(@Valid Forex forex, @RequestParam("id") int id, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
-		Utils.getUserName(modelAndView, userService);
-		
-		if (bindingResult.hasErrors()) 
-		{			
-			modelAndView.setViewName("forex_request");
-		}
-		else
+		try 
 		{
-			for(Itinerary itr:forex.getItineraryLst())
-			{
-				if(itr.getDeparture_dt()!=null || itr.getReturn_dt() !=null)
-				{
-					forex.addItinerary(itr);
-				}
-			}
-			for(ForexDetails fDtls:forex.getForexDetailsLst())
-			{
-				forex.addForexDetails(fDtls);
-			}
+			Utils.getUserName(modelAndView, userService);
 			
-			preSubmitAction(forex);
-			if(id == 0)
-			{
-				
-				forexService.save(forex);
-				modelAndView.setViewName("success");
-				modelAndView.addObject("successMessage","Sucessfully submitted the Forex Request Form.");
+			if (bindingResult.hasErrors()) 
+			{			
+				modelAndView.setViewName("forex_request");
 			}
 			else
 			{
-				forexService.updateForex(forex,id, "");
-				modelAndView.setViewName("success");
-				modelAndView.addObject("successMessage","Sucessfully Re-submitted the Forex Request Form.");
-			}		
+				for(Itinerary itr:forex.getItineraryLst())
+				{
+					if(itr.getDeparture_dt()!=null || itr.getReturn_dt() !=null)
+					{
+						forex.addItinerary(itr);
+					}
+				}
+				for(ForexDetails fDtls:forex.getForexDetailsLst())
+				{
+					forex.addForexDetails(fDtls);
+				}
+				
+				preSubmitAction(forex);
+				if(id == 0)
+				{
+					
+					forexService.save(forex);
+					modelAndView.setViewName("success");
+					modelAndView.addObject("successMessage","Sucessfully submitted the Forex Request Form.");
+				}
+				else
+				{
+					forexService.updateForex(forex,id, "");
+					modelAndView.setViewName("success");
+					modelAndView.addObject("successMessage","Sucessfully Re-submitted the Forex Request Form.");
+				}		
+			}
 		}
-		
+		catch(Exception e)
+		{
+			LOG.error("Exception while submitting the forex request", e);
+		}
 		return modelAndView;
 	}
 	
@@ -186,6 +193,10 @@ public class LoginController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		forex.setInput_user_mail(auth.getName());
 		forex.setStatus("STS_01");
+		if(StringUtils.isEmpty(forex.getRequest_type()))
+		{
+			forex.setRequest_type("off");
+		}
 		
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		Date today = Calendar.getInstance().getTime(); 

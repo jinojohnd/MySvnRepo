@@ -270,7 +270,8 @@
 					<!-- Departure Date -->
 					<tr>
 						<td>
-							<label>Departure Date</label>
+							<label th:if="${forex.request_type == 'on'}">Departure Date</label>
+							<label th:if="${forex.request_type == 'off'}">Start Date of Extension</label>
 						</td>
 						<td>
 							<input type="text" readonly class="plaintext" id ="departure_dt" name ="departure_dt" th:value="${itn.departure_dt}">
@@ -294,7 +295,8 @@
 					<!-- Return Date -->
 					<tr>
 						<td>
-							<label>Return Date</label>
+							<label th:if="${forex.request_type == 'on'}">Return Date</label>
+							<label th:if="${forex.request_type == 'off'}">End Date of Extension</label>
 						</td>
 						<td>
 							<input type="text" readonly class="plaintext" id ="return_dt" name ="return_dt" th:value="${itn.return_dt}">
